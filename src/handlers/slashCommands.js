@@ -1,4 +1,4 @@
-const fs = require("fs"), { join } = require("path"), { areas } = require("../database"), config = require("../../config.json");
+const fs = require("fs"), { join } = require("path"), { areas, access } = require("../database"), config = require("../../config.json");
 
 module.exports = async client => {
   // register commands
@@ -13,19 +13,32 @@ module.exports = async client => {
       globalCommand = false;
     }
 
-    const listAreas = await areas.get(), area = listAreas[interaction.guild_id];
-
-    const args = getSlashArgs(interaction.data.options || []);
-    console.log(args);
-
-    const subcommand = Object.keys(args).find(a => command.options.find(b => b.name == a).type == 1);
+    let
+      args = getSlashArgs(interaction.data.options || []),
+      commandFile;
+    const
+      listAreas = await areas.get(),
+      area = listAreas[interaction.guild_id],
+      subcommand = Object.keys(args).find(a => command.options.find(b => b.name == a).type == 1);
+    
     if (subcommand) {
-      const commandFile = require(`../commands/${globalCommand ? "global" : "test-area"}/${interaction.data.name}/${subcommand}.js`);
-      commandFile.execute(client, interaction, args[subcommand], area);
-    } else {
-      const commandFile = require(`../commands/${globalCommand ? "global" : "test-area"}/${interaction.data.name}.js`);
-      commandFile.execute(client, interaction, args, area);
-    }
+      commandFile = require(`../commands/${globalCommand ? "global" : "test-area"}/${interaction.data.name}/${subcommand}.js`);
+      args = args[subcommand];
+    } else commandFile = require(`../commands/${globalCommand ? "global" : "test-area"}/${interaction.data.name}.js`);
+
+    let
+      requiredPermission = ["ALL", "MEMBER", "ACCESS", "CREATOR", "OWNER", "GOD"].indexOf(commandFile.group || "ALL"),
+      currentPermission = 0,
+      listAccess = await access.get();
+    
+    if (area) currentPermission = 1; // executed within a test area, therefore a member of the test area
+    if (listAccess[interaction.member.user.id]) currentPermission = 2;
+    if (area && area.creator == interaction.member.user.id) currentPermission = 3;
+    if (config.owner == interaction.member.user.id) currentPermission = 4;
+
+    if (currentPermission < requiredPermission) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: `⛔ You don't have permission to do this, required permission group is \`${commandFile.group}\`.`, flags: 64 }}});
+
+    commandFile.execute(client, interaction, args, area);
   });
 };
 

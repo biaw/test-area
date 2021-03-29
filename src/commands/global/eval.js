@@ -7,7 +7,8 @@ module.exports = {
       description: "The code you want to run",
       required: true
     }
-  ]
+  ],
+  group: "OWNER"
 };
 
 module.exports.execute = async (client, interaction, { code }, area) => {

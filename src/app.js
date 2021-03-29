@@ -53,5 +53,3 @@ client
   .on("shardResume", (_, replayed) => console.log(`Resumed. [${replayed} events replayed]`))
   .on("warn", info => console.log("Info:", info))
   .login(config.token);
-
-access.set(config.owner, true);

@@ -7,7 +7,8 @@ module.exports = {
       description: "The ID of the guild you want to remove",
       required: true
     }
-  ]
+  ],
+  group: "ACCESS"
 };
 
 const { areas } = require("../../../database");

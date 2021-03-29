@@ -1,5 +1,6 @@
 module.exports = {
-  description: "List all the testing areas currently available"
+  description: "List all the testing areas currently available",
+  group: "ACCESS"
 };
 
 const { areas } = require("../../../database"), config = require("../../../../config.json");

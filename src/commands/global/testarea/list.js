@@ -3,10 +3,10 @@ module.exports = {
   group: "ACCESS"
 };
 
-const { areas } = require("../../../database"), config = require("../../../../config.json");
+const { areas, emojis } = require("../../../database"), config = require("../../../../config.json");
 
 module.exports.execute = async (client, interaction) => {
-  const list = await areas.get();
+  const list = await areas.get(), { owner, id, invite, bot, humans } = await emojis.get();
 
   const guilds = client.guilds.cache.filter(g => Object.keys(list).includes(g.id));
   if (!guilds.size) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: "❌ No testing areas have been created." } } });
@@ -16,13 +16,14 @@ module.exports.execute = async (client, interaction) => {
     fields: guilds.map(g => ({
       name: g.name,
       value: [
-        `**ID:** ${g.id}`,
-        `**Invite:** [discord.gg/${list[g.id].code}](https://discord.gg/${list[g.id].code})`,
-        `**Creator:** <@${list[g.id].creator}>`,
+        `${owner} <@${list[g.id].creator}>`,
         "",
-        `**Bots:** ${g.members.cache.filter(m => m.user.bot && m.user.id !== client.user.id).map(m => `\`${m.user.tag}\``).join(", ") || "None"}`,
+        `${id} ${g.id}`,
+        `${invite} [discord.gg/${list[g.id].code}](https://discord.gg/${list[g.id].code})`,
         "",
-        `**Humans: ${g.members.cache.filter(m => !m.user.bot).map(m => `\`${m.user.tag}\``).join(", ") || "None"}**`
+        `${bot} ${g.members.cache.filter(m => m.user.bot && m.user.id !== client.user.id).map(m => `\`${m.user.tag}\``).join(", ") || "None"}`,
+        "",
+        `${humans} ${g.members.cache.filter(m => !m.user.bot).map(m => `\`${m.user.tag}\``).join(", ") || "None"}`
       ].join("\n")
     })),
     color: config.embedColors.success

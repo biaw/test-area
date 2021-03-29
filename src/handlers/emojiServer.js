@@ -14,7 +14,7 @@ module.exports = async client => {
   for (const fileName of emojiFiles.filter(f => !current[f.split(".")[0]])) {
     const 
       name = fileName.split(".")[0],
-      newEmoji = await guild.emojis.create(`./src/storage/emojis/${fileName}`, name);
+      newEmoji = await guild.emojis.create(`./src/assets/emojis/${fileName}`, name);
     await emojis.set(name, `<:${newEmoji.name}:${newEmoji.id}>`);
     console.log(`Created emoji ${fileName}`);
   }
@@ -22,7 +22,7 @@ module.exports = async client => {
 };
 
 const emojiFiles = [];
-fs.readdir("./src/storage/emojis", (err, files) => {
+fs.readdir("./src/assets/emojis", (err, files) => {
   if (err) return console.log(err);
   emojiFiles.push(...files.filter(f => f.includes(".")));
 });

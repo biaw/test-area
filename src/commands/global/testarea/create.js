@@ -27,10 +27,11 @@ module.exports = {
       name: "admin_public",
       description: "Make the /admin command public. Default is true"
     }
-  ]
+  ],
+  group: "ACCESS"
 };
 
-const { areas } = require("../../../database");
+const { areas, emojis } = require("../../../database");
 
 module.exports.execute = async (client, interaction, { name, channels = 3, auto_admin = false, admin_vc = true, admin_public = true }) => {
   if (client.guilds.cache.size >= 10) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: "❌ I can't create more testing areas, I have reached Discord's limit of 10 guilds per bot." } } });
@@ -118,8 +119,9 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
     systemChannelID: 1001,
     verificationLevel: "NONE"
   });
-
-  const newInvite = await newGuild.channels.cache.find(ch => ch.name == "entry-log").createInvite({ maxAge: 0 });
+  
+  const entryChannel = newGuild.channels.cache.find(ch => ch.name == "entry-log"), newInvite = await entryChannel.createInvite({ maxAge: 0 });
+  entryChannel.send(`${await emojis.get("slash")} To set up test area slash commands in this server, please authorize me: <https://discord.com/oauth2/authorize?client_id=${client.user.id}&guild_id=${newGuild.id}&scope=applications.commands> and then write \`/setup\`.`).then(m => m.pin())
 
   const toggleadmin = newGuild.channels.cache.find(ch => ch.name == "Toggle Administrator");
 

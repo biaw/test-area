@@ -121,7 +121,7 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
   });
   
   const entryChannel = newGuild.channels.cache.find(ch => ch.name == "entry-log"), newInvite = await entryChannel.createInvite({ maxAge: 0 });
-  entryChannel.send(`${await emojis.get("slash")} To set up test area slash commands in this server, please authorize me: <https://discord.com/oauth2/authorize?client_id=${client.user.id}&guild_id=${newGuild.id}&scope=applications.commands> and then write \`/setup\`.`).then(m => m.pin())
+  entryChannel.send(`${await emojis.get("slash")} To set up test area slash commands in this server, please authorize me: <https://discord.com/oauth2/authorize?client_id=${client.user.id}&guild_id=${newGuild.id}&scope=applications.commands> and then write \`/setup\`.`).then(m => m.pin());
 
   const toggleadmin = newGuild.channels.cache.find(ch => ch.name == "Toggle Administrator");
 

@@ -14,7 +14,7 @@ const
     }
   }),
   config = require("../config.json"),
-  { areas, access } = require("./database");
+  { areas } = require("./database");
 
 client.on("shardReady", async () => {
   // set up emojis if it's the first time

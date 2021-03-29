@@ -11,7 +11,7 @@ module.exports = {
   group: "OWNER"
 };
 
-module.exports.execute = async (client, interaction, { code }, area) => {
+module.exports.execute = async (client, interaction, { code }) => {
   try {
     let evaled = eval(code);
     if (typeof evaled != "string") evaled = require("util").inspect(evaled);

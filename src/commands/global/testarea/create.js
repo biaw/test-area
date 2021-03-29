@@ -10,24 +10,29 @@ module.exports = {
     {
       type: 4,
       name: "channels",
-      description: "The amount of testing channels you want to be created"
+      description: "The amount of testing channels you want to be created. Default is 3"
     },
     {
       type: 5,
       name: "auto_admin",
-      description: "If you want users to get admin automatically, enable this"
+      description: "Give users admin when they join the server. Default is false"
     },
     {
       type: 3,
       name: "admin_vc",
-      description: "If you want a channel created to easily toggle the admin role"
+      description: "If you want a channel created to easily toggle the admin role. Default is true"
+    },
+    {
+      type: 3,
+      name: "admin_public",
+      description: "Make the /admin command public. Default is true"
     }
   ]
 };
 
 const { areas } = require("../../../database");
 
-module.exports.execute = async (client, interaction, { name, channels = 3, auto_admin = false, admin_vc = true }) => {
+module.exports.execute = async (client, interaction, { name, channels = 3, auto_admin = false, admin_vc = true, admin_public = true }) => {
   if (client.guilds.cache.size >= 10) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: "❌ I can't create more testing areas, I have reached Discord's limit of 10 guilds per bot." } } });
 
   await client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 5 } });
@@ -127,7 +132,8 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
     },
     settings: {
       auto_admin,
-      admin_vc: toggleadmin ? toggleadmin.id : null
+      admin_vc: toggleadmin ? toggleadmin.id : null,
+      admin_public
     }
   });
 

@@ -131,5 +131,5 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
     }
   });
 
-  return client.api.webhooks(client.user.id, interaction.token).messages['@original'].patch({ data: { content: `✅ Successfully created a test area for you. Here's an invite: https://discord.gg/${newInvite.code}` }});
+  return client.api.webhooks(client.user.id, interaction.token).messages["@original"].patch({ data: { content: `✅ Successfully created a test area for you. Here's an invite: https://discord.gg/${newInvite.code}` }});
 };

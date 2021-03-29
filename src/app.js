@@ -16,9 +16,9 @@ const
   config = require("../config.json"),
   { areas, access } = require("./database");
 
-client.on("shardReady", () => {
+client.on("shardReady", async () => {
   // set up emojis if it's the first time
-  emojiServerHandler(client);
+  await emojiServerHandler(client);
 
   // set up slash commands
   slashCommandHandler(client);
@@ -32,7 +32,7 @@ client.on("shardReady", () => {
     for (const guild of Object.keys(list).filter(guildid => !client.guilds.cache.has(guildid))) await areas.unset(guild);
 
     const
-      current = Object.keys(list).filter(guildid => !client.guilds.cache.has(guildid)).size,
+      current = Object.keys(list).filter(guildid => client.guilds.cache.has(guildid)).length,
       maximum = 10 - (client.guilds.cache.size - current);
 
     client.user.setPresence({
@@ -52,7 +52,6 @@ client
   .on("shardReconnecting", () => console.log("Reconnecting..."))
   .on("shardResume", (_, replayed) => console.log(`Resumed. [${replayed} events replayed]`))
   .on("warn", info => console.log("Info:", info))
-  .on("debug", console.log)
   .login(config.token);
 
 access.set(config.owner, true);

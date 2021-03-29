@@ -7,6 +7,7 @@ module.exports = async client => {
   if (!guild) {
     console.log("Could not find emoji server, creating a new server for emojis.");
     guild = await client.guilds.create("EMOJI SERVER");
+    for (const key in db) await emojis.unset(key);
     await emojis.set("guild", guild.id);
   }
 

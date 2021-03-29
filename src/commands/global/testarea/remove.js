@@ -14,7 +14,7 @@ module.exports = {
 const { areas } = require("../../../database");
 
 module.exports.execute = async (client, interaction, { guild_id }) => {
-  const list = await areas.get(), guild = list[guild_id], dGuild = client.guilds.cache.get(guild_id);
+  const guild = await areas.get(guild_id), dGuild = client.guilds.cache.get(guild_id);
   if (!guild || !dGuild) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: "❌ No testing areas with that guild ID was found." } } });
 
   dGuild.delete()

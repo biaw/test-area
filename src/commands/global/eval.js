@@ -10,7 +10,7 @@ module.exports = {
   ]
 };
 
-module.exports.execute = async (client, interaction, { code }) => {
+module.exports.execute = async (client, interaction, { code }, area) => {
   try {
     let evaled = eval(code);
     if (typeof evaled != "string") evaled = require("util").inspect(evaled);

@@ -13,7 +13,7 @@ module.exports = async client => {
       globalCommand = false;
     }
 
-    console.log(command);
+    const listAreas = await areas.get(), area = listAreas[interaction.guild_id];
 
     const args = getSlashArgs(interaction.data.options || []);
     console.log(args);
@@ -21,10 +21,10 @@ module.exports = async client => {
     const subcommand = Object.keys(args).find(a => command.options.find(b => b.name == a).type == 1);
     if (subcommand) {
       const commandFile = require(`../commands/${globalCommand ? "global" : "test-area"}/${interaction.data.name}/${subcommand}.js`);
-      commandFile.execute(client, interaction, args[subcommand]);
+      commandFile.execute(client, interaction, args[subcommand], area);
     } else {
       const commandFile = require(`../commands/${globalCommand ? "global" : "test-area"}/${interaction.data.name}.js`);
-      commandFile.execute(client, interaction, args);
+      commandFile.execute(client, interaction, args, area);
     }
   });
 };

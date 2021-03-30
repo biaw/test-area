@@ -18,12 +18,12 @@ module.exports = {
       description: "Give users admin when they join the server. Default is false"
     },
     {
-      type: 3,
+      type: 5,
       name: "admin_vc",
       description: "If you want a channel created to easily toggle the admin role. Default is true"
     },
     {
-      type: 3,
+      type: 5,
       name: "admin_public",
       description: "Make the /admin command public. Default is true"
     }

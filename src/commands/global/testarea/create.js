@@ -41,6 +41,16 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
   const newGuild = await client.guilds.create(name, {
     channels: [
       {
+        id: 0,
+        name: "❗setup-commands❗",
+        permissionOverwrites: [
+          {
+            id: 2001,
+            deny: [ "VIEW_CHANNEL" ]
+          }
+        ]
+      },
+      {
         id: 1001,
         name: "entry-log",
         permissionOverwrites: [
@@ -119,9 +129,11 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
     systemChannelID: 1001,
     verificationLevel: "NONE"
   });
+
+  const setupMessage = await newGuild.channels.cache.find(ch => ch.name == "❗setup-commands❗").send(`${await emojis.get("slash")} To set up test area slash commands in this server, please authorize me: <https://discord.com/oauth2/authorize?client_id=${client.user.id}&guild_id=${newGuild.id}&scope=applications.commands> and then click the checkmark below.`);
+  setupMessage.react("✅");
   
-  const entryChannel = newGuild.channels.cache.find(ch => ch.name == "entry-log"), newInvite = await entryChannel.createInvite({ maxAge: 0 });
-  entryChannel.send(`${await emojis.get("slash")} To set up test area slash commands in this server, please authorize me: <https://discord.com/oauth2/authorize?client_id=${client.user.id}&guild_id=${newGuild.id}&scope=applications.commands> and then write \`/setup\`.`).then(m => m.pin());
+  const newInvite = await newGuild.channels.cache.find(ch => ch.name == "entry-log").createInvite({ maxAge: 0 });
 
   const toggleadmin = newGuild.channels.cache.find(ch => ch.name == "Toggle Administrator");
 
@@ -136,7 +148,8 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
       auto_admin,
       admin_vc: toggleadmin ? toggleadmin.id : null,
       admin_public
-    }
+    },
+    setupMessage: setupMessage.id
   });
 
   return client.api.webhooks(client.user.id, interaction.token).messages["@original"].patch({ data: { content: `✅ Successfully created a test area for you. Here's an invite: https://discord.gg/${newInvite.code}` }});

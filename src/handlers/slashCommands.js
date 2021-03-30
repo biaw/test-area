@@ -4,7 +4,7 @@ module.exports = async client => {
   // register commands
   registerCommands(client, globalCommands).then(() => console.log("Global slash commands have been registered."));
   const guilds = Object.keys(await areas.get());
-  Promise.all(client.guilds.cache.filter(guild => guilds.includes(guild.id)).map(guild => registerCommands(client, testCommands, guild.id))).then(() => console.log("Test area slash commands have been registered."));
+  Promise.all(client.guilds.cache.filter(guild => guilds.includes(guild.id)).map(guild => registerCommands(client, testCommands, guild.id).catch(() => console.log(`Guild "${guild.name}" has not authorized me to set up slash commands.`)))).then(() => console.log("Test area slash commands have been registered."));
 
   client.ws.on("INTERACTION_CREATE", async interaction => {
     let command = globalCommands.find(c => c.name == interaction.data.name), globalCommand = true;
@@ -77,6 +77,9 @@ async function registerCommands(client, commands, guild) {
     .map(data => slashCommands.post({ data }))
   );
 }
+
+module.exports.registerTestCommandsForGuild = (guildid, client) => registerCommands(client, testCommands, guildid);
+
 // loading commands
 const globalCommands = [], testCommands = [];
 

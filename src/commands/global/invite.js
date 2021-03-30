@@ -1,5 +1,5 @@
 module.exports = {
-  description: "Get an invite. Add the bot's slash commands to any server you'd like to easily manage your test areas.",
+  description: "Get an invite to add the bot for easy management of your test areas.",
   group: "OWNER"
 };
 

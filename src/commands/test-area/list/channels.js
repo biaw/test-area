@@ -52,39 +52,39 @@ module.exports.execute = async (client, interaction, { form = "embed" }) => {
         return na - nb;
       })
       .array()
-    )
+    );
   }
 
   switch (form) {
-    case "embed":
-      client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: {
-        embeds: [{
-          fields: [
-            {
-              name: "Name",
-              value: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojiTable)} \`${ch.name}\``).join("\n"),
-              inline: true
-            },
-            {
-              name: "IDs",
-              value: channels.map(ch => `\`${ch.id}\` ${emojiTable.blank}`).join("\n"),
-              inline: true
-            }
-          ],
-          color: config.embedColors.success
-        }]
-      }}})
-      break;
-    case "compact":
-      client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: {
-        content: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojiTable)} \`${ch.name}\` (${ch.id})`).join("\n")
-      }}})
-      break;
-    case "ids":
-      client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: {
-        content: channels.map(ch => `"${ch.id}"`).join(", ")
-      }}})
-      break;
+  case "embed":
+    client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: {
+      embeds: [{
+        fields: [
+          {
+            name: "Name",
+            value: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojiTable)} \`${ch.name}\``).join("\n"),
+            inline: true
+          },
+          {
+            name: "IDs",
+            value: channels.map(ch => `\`${ch.id}\` ${emojiTable.blank}`).join("\n"),
+            inline: true
+          }
+        ],
+        color: config.embedColors.success
+      }]
+    }}});
+    break;
+  case "compact":
+    client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: {
+      content: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojiTable)} \`${ch.name}\` (${ch.id})`).join("\n")
+    }}});
+    break;
+  case "ids":
+    client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: {
+      content: channels.map(ch => `"${ch.id}"`).join(", ")
+    }}});
+    break;
   }
 };
 

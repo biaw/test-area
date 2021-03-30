@@ -7,7 +7,7 @@ module.exports = client => {
       if (member.user.bot) member.roles.add(area.roles.bot);
       if (member.user.id == area.creator) member.roles.add(area.roles.admin);
     }
-  })
+  });
 
   // admin vc toggle
   client.on("voiceStateUpdate", async (_, voice) => {
@@ -34,7 +34,7 @@ module.exports = client => {
         reaction.users.remove(user);
       }
     }
-  })
+  });
 };
 
 // auto admin

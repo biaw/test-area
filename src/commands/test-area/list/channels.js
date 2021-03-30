@@ -23,6 +23,8 @@ module.exports = {
   ]
 };
 
+const config = require("../../../../config.json");
+
 module.exports.execute = async (client, interaction, { form = "embed" }, emojis) => {
   const
     guild = client.guilds.cache.get(interaction.guild_id),

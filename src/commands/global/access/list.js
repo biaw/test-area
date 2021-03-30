@@ -5,7 +5,7 @@ module.exports = {
 
 const { access } = require("../../../database"), config = require("../../../../config.json");
 
-module.exports.execute = async (client, interaction, {}, { staff, owner }) => {
+module.exports.execute = async (client, interaction, _, { staff, owner }) => {
   const users = Object.keys(await access.get());
 
   client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { embeds: [{

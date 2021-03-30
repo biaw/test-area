@@ -5,7 +5,7 @@ module.exports = {
 
 const { areas } = require("../../../database"), config = require("../../../../config.json");
 
-module.exports.execute = async (client, interaction, {}, { owner, id, invite, bot, humans }) => {
+module.exports.execute = async (client, interaction, _, { owner, id, invite, bot, humans }) => {
   const list = await areas.get();
 
   const guilds = client.guilds.cache.filter(g => Object.keys(list).includes(g.id));

@@ -97,7 +97,7 @@ function nestCommands(relPath, arr) {
         fs.readdir(join(__dirname, relPath, file), (err, files) => {
           if (err) return console.log(err);
           arr.push({ name: file, description: "Sub-command.", options: files.map(fileName => {
-            const { description = "No description", options = [] } = require(`${relPath}/${file}/${fileName}`);
+            const { description = "No description", options } = require(`${relPath}/${file}/${fileName}`);
             return { type: 1, name: fileName.split(".")[0], description, options };
           })});
         });

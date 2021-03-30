@@ -1,4 +1,4 @@
-const fs = require("fs"), { join } = require("path"), { areas, access } = require("../database"), config = require("../../config.json");
+const fs = require("fs"), { join } = require("path"), { areas, access, emojis } = require("../database"), config = require("../../config.json");
 
 module.exports = async client => {
   // register commands
@@ -38,7 +38,7 @@ module.exports = async client => {
 
     if (currentPermission < requiredPermission) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: `⛔ You don't have permission to do this, required permission group is \`${commandFile.group}\`.`, flags: 64 }}});
 
-    commandFile.execute(client, interaction, args, area);
+    commandFile.execute(client, interaction, args, await emojis.get(), area);
   });
 };
 

@@ -31,9 +31,9 @@ module.exports = {
   group: "ACCESS"
 };
 
-const { areas, emojis } = require("../../../database");
+const { areas } = require("../../../database");
 
-module.exports.execute = async (client, interaction, { name, channels = 3, auto_admin = false, admin_vc = true, admin_public = true }) => {
+module.exports.execute = async (client, interaction, { name, channels = 3, auto_admin = false, admin_vc = true, admin_public = true }, { slash }) => {
   if (client.guilds.cache.size >= 10) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: "❌ I can't create more testing areas, I have reached Discord's limit of 10 guilds per bot." } } });
 
   await client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 5 } });
@@ -130,7 +130,7 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
     verificationLevel: "NONE"
   });
 
-  const setupMessage = await newGuild.channels.cache.find(ch => ch.name == "❗setup-commands❗").send(`${await emojis.get("slash")} To set up test area slash commands in this server, please authorize me: <https://discord.com/oauth2/authorize?client_id=${client.user.id}&guild_id=${newGuild.id}&scope=applications.commands> and then click the checkmark below.`);
+  const setupMessage = await newGuild.channels.cache.find(ch => ch.name == "❗setup-commands❗").send(`${slash} To set up test area slash commands in this server, please authorize me: <https://discord.com/oauth2/authorize?client_id=${client.user.id}&guild_id=${newGuild.id}&scope=applications.commands> and then click the checkmark below.`);
   setupMessage.react("✅");
   
   const newInvite = await newGuild.channels.cache.find(ch => ch.name == "entry-log").createInvite({ maxAge: 0 });

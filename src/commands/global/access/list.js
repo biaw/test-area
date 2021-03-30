@@ -3,10 +3,10 @@ module.exports = {
   group: "ACCESS"
 };
 
-const { access, emojis } = require("../../../database"), config = require("../../../../config.json");
+const { access } = require("../../../database"), config = require("../../../../config.json");
 
-module.exports.execute = async (client, interaction) => {
-  const users = Object.keys(await access.get()), { staff, owner } = await emojis.get();
+module.exports.execute = async (client, interaction, {}, { staff, owner }) => {
+  const users = Object.keys(await access.get());
 
   client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { embeds: [{
     fields: [

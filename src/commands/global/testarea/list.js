@@ -3,10 +3,10 @@ module.exports = {
   group: "ACCESS"
 };
 
-const { areas, emojis } = require("../../../database"), config = require("../../../../config.json");
+const { areas } = require("../../../database"), config = require("../../../../config.json");
 
-module.exports.execute = async (client, interaction) => {
-  const list = await areas.get(), { owner, id, invite, bot, humans } = await emojis.get();
+module.exports.execute = async (client, interaction, {}, { owner, id, invite, bot, humans }) => {
+  const list = await areas.get();
 
   const guilds = client.guilds.cache.filter(g => Object.keys(list).includes(g.id));
   if (!guilds.size) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: "❌ No testing areas have been created." } } });

@@ -23,9 +23,7 @@ module.exports = {
   ]
 };
 
-const { emojis } = require("../../../database"), config = require("../../../../config.json");
-
-module.exports.execute = async (client, interaction, { form = "embed" }) => {
+module.exports.execute = async (client, interaction, { form = "embed" }, emojis) => {
   const
     guild = client.guilds.cache.get(interaction.guild_id),
     baseChannels = guild.channels.cache
@@ -40,8 +38,7 @@ module.exports.execute = async (client, interaction, { form = "embed" }) => {
         return na - nb;
       })
       .array(),
-    channels = [],
-    emojiTable = await emojis.get();
+    channels = [];
   
   for (const channel of baseChannels) {
     channels.push(channel);
@@ -62,12 +59,12 @@ module.exports.execute = async (client, interaction, { form = "embed" }) => {
         fields: [
           {
             name: "Name",
-            value: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojiTable)} \`${ch.name}\``).join("\n"),
+            value: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojis)} \`${ch.name}\``).join("\n"),
             inline: true
           },
           {
             name: "IDs",
-            value: channels.map(ch => `\`${ch.id}\` ${emojiTable.blank}`).join("\n"),
+            value: channels.map(ch => `\`${ch.id}\` ${emojis.blank}`).join("\n"),
             inline: true
           }
         ],
@@ -77,7 +74,7 @@ module.exports.execute = async (client, interaction, { form = "embed" }) => {
     break;
   case "compact":
     client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: {
-      content: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojiTable)} \`${ch.name}\` (${ch.id})`).join("\n")
+      content: channels.map(ch => `${ch.parentID ? "> " : ""}${getChannelEmoji(ch, emojis)} \`${ch.name}\` (${ch.id})`).join("\n")
     }}});
     break;
   case "ids":

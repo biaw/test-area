@@ -1,6 +1,6 @@
 module.exports = {
   description: "List everyone who has been given access",
-  group: "ACCESS"
+  group: "MEMBERS"
 };
 
 const { access } = require("../../../database"), config = require("../../../../config.json");

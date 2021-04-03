@@ -31,7 +31,7 @@ module.exports = {
   group: "ACCESS"
 };
 
-const { areas } = require("../../../database");
+const { Permissions } = require("discord.js"), { areas } = require("../../../database");
 
 module.exports.execute = async (client, interaction, { name, channels = 3, auto_admin = false, admin_vc = true, admin_public = true }, { slash }) => {
   if (client.guilds.cache.size >= 10) return client.api.interactions(interaction.id, interaction.token).callback.post({ data: { type: 4, data: { content: "❌ I can't create more testing areas, I have reached Discord's limit of 10 guilds per bot." } } });
@@ -97,7 +97,7 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
       {
         id: 2001,
         name: "everyone",
-        permissions: [
+        permissions: new Permissions([
           "ADD_REACTIONS",
           "VIEW_AUDIT_LOG",
           "VIEW_CHANNEL",
@@ -110,7 +110,7 @@ module.exports.execute = async (client, interaction, { name, channels = 3, auto_
           "SPEAK",
           "USE_VAD",
           "CHANGE_NICKNAME"
-        ]
+        ]).add(2147483648) // slash commands temporarily until https://github.com/discordjs/discord.js/pull/5448 gets merged
       },
       {
         id: 2002,

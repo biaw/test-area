@@ -3,4 +3,3 @@ build
 database/**
 !database/.gitkeep
 logs
-.env

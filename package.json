@@ -1,19 +1,29 @@
 {
-  "main": "src/app.js",
+  "name": "test-area",
+  "main": "build/bot.js",
+  "license": "MIT",
   "scripts": {
-    "start": "node ."
+    "build": "tsc",
+    "lint": "eslint ./src",
+    "start": "node .",
+    "watch": "tsc -w"
   },
-  "license": "ISC",
   "dependencies": {
-    "bufferutil": "^4.0.3",
-    "discord.js": "^12.5.3",
-    "erlpack": "^0.1.3",
-    "fs": "0.0.1-security",
+    "bufferutil": "^4.0.5",
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "erlpack": "github:discord/erlpack",
     "quick-store": "^0.1.4",
-    "utf-8-validate": "^5.0.4",
+    "utf-8-validate": "^5.0.7",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5",
     "zlib-sync": "^0.1.7"
   },
   "devDependencies": {
-    "eslint": "^7.23.0"
+    "@types/node": "^17.0.0",
+    "@types/quick-store": "^0.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint": "^8.4.1"
   }
 }

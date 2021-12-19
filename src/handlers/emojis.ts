@@ -1,9 +1,9 @@
+import { readFileSync, readdir } from "fs";
 import { Guild } from "discord.js";
 import { Handler } from "../@types/handler";
 import config from "../config";
 import { emojis } from "../utils/database";
 import { join } from "path";
-import { readFileSync, readdir } from "fs";
 import { testAreaLogger } from "../utils/logger";
 
 const emojiFolder = join(__dirname, "..", "..", "assets", "emojis");

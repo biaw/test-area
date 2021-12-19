@@ -35,4 +35,4 @@ jobs:
         with:
           context: .
           push: ${{ github.ref == 'refs/heads/master' }}
-          tags: promisesolutions/phone:latest
+          tags: promisesolutions/test-area:latest

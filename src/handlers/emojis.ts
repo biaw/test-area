@@ -1,9 +1,9 @@
+import { readFileSync, readdir } from "fs";
 import { Guild } from "discord.js";
 import { Handler } from "../@types/handler";
 import config from "../config";
 import { emojis } from "../utils/database";
 import { join } from "path";
-import { readdir } from "fs";
 import { testAreaLogger } from "../utils/logger";
 
 const emojiFolder = join(__dirname, "..", "..", "assets", "emojis");
@@ -30,7 +30,7 @@ export default (async client => {
     if (err) throw err;
     for (const fileName of files.filter(file => !current[file.split(".")[0]])) {
       const [name] = fileName.split(".");
-      const emoji = await currentGuild.emojis.create(join(emojiFolder, fileName), name);
+      const emoji = await currentGuild.emojis.create(readFileSync(join(emojiFolder, fileName)), name);
 
       await emojis.set(name, emoji.toString());
       testAreaLogger.info(`Created emoji "${emoji.name}"`);

@@ -1,2 +1,2 @@
 * text eol=crlf
-assets/* binary
+assets/** binary

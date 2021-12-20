@@ -7,11 +7,17 @@ import { readdir } from "fs";
 
 const client = new Client({
   partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"],
+  allowedMentions: {
+    parse: [],
+    repliedUser: true,
+    roles: [],
+    users: [],
+  },
+  intents: ["GUILDS", "GUILD_MEMBERS"],
   userAgentSuffix: [
     `Responsible is ${config.DISCORD_OWNER_ID}`,
     "Source: https://github.com/biaw/test-area",
   ],
-  intents: ["GUILDS", "GUILD_MEMBERS"],
 });
 
 client.once("ready", trueClient => {

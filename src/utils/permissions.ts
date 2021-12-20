@@ -1,6 +1,5 @@
 import { AreaPermission, GlobalPermission } from "../@types/permissions";
 import { Area } from "../@types/area";
-import { GuildMemberRoleManager } from "discord.js";
 import { access } from "./database";
 import config from "../config";
 
@@ -29,14 +28,13 @@ export async function testGlobalPermission(userId: string, requiredPermission: G
   return globalLadder[userPermission] >= globalLadder[requiredPermission];
 }
 
-export function getAreaPermission(userRoles: string[] | GuildMemberRoleManager, area: Area): AreaPermission {
-  const roles = Array.isArray(userRoles) ? userRoles : Array.from(userRoles.cache.keys());
-  if (roles.includes(area.roles.owner)) return "OWNER";
-  if (roles.includes(area.roles.elevated)) return "ELEVATED";
+export function getAreaPermission(userId: string, area: Area): AreaPermission {
+  if (userId === area.roles.owner) return "OWNER";
+  if (area.roles.elevated.includes(userId)) return "ELEVATED";
   return "ALL";
 }
 
-export function testAreaPermission(userRoles: string[] | GuildMemberRoleManager, area: Area, requiredPermission: AreaPermission): boolean {
-  const userPermission = getAreaPermission(userRoles, area);
+export function testAreaPermission(userId: string, area: Area, requiredPermission: AreaPermission): boolean {
+  const userPermission = getAreaPermission(userId, area);
   return areaLadder[userPermission] >= areaLadder[requiredPermission];
 }

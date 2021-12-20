@@ -6,6 +6,7 @@ import { join } from "path";
 import { readdir } from "fs";
 
 const client = new Client({
+  partials: ["CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "USER"],
   allowedMentions: {
     parse: [],
     repliedUser: true,

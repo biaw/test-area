@@ -15,7 +15,7 @@ export default async (interaction: ContextMenuInteraction, area?: Area) => {
     if (areaCommand && area) {
       const { areaPermissionLevel, execute }: UserCommand = (await import(join(userCommandsFolder, areaCommand.name))).default;
 
-      const hasPermission = areaPermissionLevel ? testAreaPermission(interaction.member.roles, area, areaPermissionLevel) : true;
+      const hasPermission = areaPermissionLevel ? testAreaPermission(interaction.user.id, area, areaPermissionLevel) : true;
       if (!hasPermission) return interaction.reply(permissionError);
 
       return execute(interaction, await emojis.get());

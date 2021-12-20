@@ -14,7 +14,7 @@ export default async (interaction: CommandInteraction, area?: Area) => {
   if (areaCommand && area) {
     const { areaPermissionLevel, execute }: SlashCommand = (await import(join(slashCommandsFolder, areaCommand.name))).default;
 
-    const hasPermission = areaPermissionLevel ? testAreaPermission(interaction.member.roles, area, areaPermissionLevel) : true;
+    const hasPermission = areaPermissionLevel ? testAreaPermission(interaction.user.id, area, areaPermissionLevel) : true;
     if (!hasPermission) return interaction.reply(permissionError);
 
     return execute(interaction, convertArguments(interaction.options.data), await emojis.get());

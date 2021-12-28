@@ -3,7 +3,7 @@ import { areas } from "../../utils/database";
 
 export default {
   execute: async interaction => {
-    const area = await areas.get(interaction.guildId);
+    const area = await areas.get(interaction.guildId as string);
     const member = await interaction.guild?.members.fetch(interaction.targetId);
     if (!area || !member) return;
 

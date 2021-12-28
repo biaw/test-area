@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "bufferutil": "^4.0.5",
-    "discord.js": "^13.3.1",
+    "discord.js": "^13.4.0",
     "dotenv": "^10.0.0",
     "erlpack": "github:discord/erlpack",
     "quick-store": "^0.1.4",
@@ -22,8 +22,8 @@
   "devDependencies": {
     "@types/node": "^17.0.0",
     "@types/quick-store": "^0.1.0",
-    "@typescript-eslint/eslint-plugin": "^5.7.0",
-    "@typescript-eslint/parser": "^5.7.0",
-    "eslint": "^8.4.1"
+    "@typescript-eslint/eslint-plugin": "^5.8.1",
+    "@typescript-eslint/parser": "^5.8.1",
+    "eslint": "^8.5.0"
   }
 }

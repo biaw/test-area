@@ -16,7 +16,7 @@ export default {
       description: "Output in plain text",
     },
   ],
-  execute: async (interaction, { code, plaintext = false }: { code: string; plaintext?: boolean; }, { success, error }) => {
+  execute: async (interaction, { code, plaintext = false }: { code: string; plaintext?: boolean; }) => {
     let replied: Promise<void> | undefined;
     try {
       const evaled = eval(code);
@@ -28,16 +28,16 @@ export default {
           const output = typeof result !== "string" ? inspect(result) : result;
 
           await replied;
-          interaction.editReply(plaintext ? output : `${success} Evaluated successfully. (\`${time}ms\`) \`\`\`js\n${output}\`\`\``);
+          interaction.editReply(plaintext ? output : `✅ Evaluated successfully. (\`${time}ms\`) \`\`\`js\n${output}\`\`\``);
         });
       }
 
       const output = typeof evaled !== "string" ? inspect(evaled) : evaled;
-      return interaction.reply(plaintext ? output : `${success} Evaluated successfully. \`\`\`js\n${output}\`\`\``);
+      return interaction.reply(plaintext ? output : `✅ Evaluated successfully. \`\`\`js\n${output}\`\`\``);
     } catch (e) {
       const err = typeof e === "string" ? e.replace(/`/g, `\`${String.fromCharCode(8203)}`).replace(/@/g, `@${String.fromCharCode(8203)}`) : e;
 
-      const content = `${error} JavaScript failed.\n\`\`\`fix\n${err}\`\`\``;
+      const content = `❌ JavaScript failed.\n\`\`\`fix\n${err}\`\`\``;
       if (replied) {
         await replied;
         interaction.editReply(content);

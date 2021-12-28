@@ -3,7 +3,6 @@ import { testAreaPermission, testGlobalPermission } from "../../utils/permission
 import { Area } from "../../@types/area";
 import { ContextMenuInteraction } from "discord.js";
 import { UserCommand } from "../../@types/interactions";
-import { emojis } from "../../utils/database";
 import { inspect } from "util";
 import { join } from "path";
 import { permissionError } from "../../constants/messages";
@@ -18,7 +17,7 @@ export default async (interaction: ContextMenuInteraction, area?: Area) => {
       const hasPermission = areaPermissionLevel ? testAreaPermission(interaction.user.id, area, areaPermissionLevel) : true;
       if (!hasPermission) return interaction.reply(permissionError);
 
-      return execute(interaction, await emojis.get());
+      return execute(interaction);
     }
 
     const globalCommand = globalCommands.find(command => command.name === interaction.commandName);
@@ -28,7 +27,7 @@ export default async (interaction: ContextMenuInteraction, area?: Area) => {
       const hasPermission = globalPermissionLevel ? await testGlobalPermission(interaction.user.id, globalPermissionLevel) : true;
       if (!hasPermission) return interaction.reply(permissionError);
 
-      return execute(interaction, await emojis.get());
+      return execute(interaction);
     }
 
     return void testAreaLogger.warn(`Unknown user command interaction: ${inspect(interaction.toJSON())}`);

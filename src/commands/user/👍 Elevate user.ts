@@ -2,13 +2,13 @@ import { UserCommand } from "../../@types/interactions";
 import { areas } from "../../utils/database";
 
 export default {
-  execute: async (interaction, { success, error }) => {
+  execute: async interaction => {
     const area = await areas.get(interaction.guildId as string);
     if (!area) return;
 
     if (interaction.targetId === area.ownerId) {
       return interaction.reply({
-        content: `${error} You can't elevate the owner.`,
+        content: "❌ You can't elevate the owner.",
         ephemeral: true,
       });
     }
@@ -17,14 +17,14 @@ export default {
       area.elevated = area.elevated.filter(id => id !== interaction.targetId);
       interaction.guild?.members.fetch(interaction.targetId).then(member => member.roles.remove(area.roles.elevated));
       interaction.reply({
-        content: `${success} User <@${interaction.targetId}> is no longer elevated.`,
+        content: `✅ User <@${interaction.targetId}> is no longer elevated.`,
         ephemeral: true,
       });
     } else {
       area.elevated.push(interaction.targetId);
       interaction.guild?.members.fetch(interaction.targetId).then(member => member.roles.add(area.roles.elevated));
       interaction.reply({
-        content: `${success} User <@${interaction.targetId}> is now elevated.`,
+        content: `✅ User <@${interaction.targetId}> is now elevated.`,
         ephemeral: true,
       });
     }

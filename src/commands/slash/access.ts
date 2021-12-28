@@ -46,22 +46,22 @@ export default {
       ],
     },
   ],
-  execute: async (interaction, { grant, list, revoke }: CommandArgs, { success }) => {
+  execute: async (interaction, { grant, list, revoke }: CommandArgs) => {
     if (grant) {
       const { user } = grant;
       await access.set(user, true);
-      interaction.reply(`${success} Successfully granted access to <@${user}>.`);
+      interaction.reply(`✅ Successfully granted access to <@${user}>.`);
     }
 
     if (list) {
       const users = Object.keys(await access.get());
-      interaction.reply(`${success} Users with access: (${users.length})\n${users.map(id => `• <@${id}>`).join("\n")}`);
+      interaction.reply(`✅ Users with access: (${users.length})\n${users.map(id => `• <@${id}>`).join("\n")}`);
     }
 
     if (revoke) {
       const { user } = revoke;
       await access.delete(user);
-      interaction.reply(`${success} Successfully revoked access from <@${user}>.`);
+      interaction.reply(`✅ Successfully revoked access from <@${user}>.`);
     }
   },
   globalPermissionLevel: "OWNER",

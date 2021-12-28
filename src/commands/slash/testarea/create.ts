@@ -7,8 +7,8 @@ export type CommandArgs = {
   channels?: number;
 }
 
-export default (async (interaction, { name, channels = 5 }: CommandArgs, { slash, success, error }) => {
-  if (interaction.client.guilds.cache.size >= 10) return interaction.reply(`${error} I can't create more testing areas, I've reached Discord's limit of 10 guilds per bot.`);
+export default (async (interaction, { name, channels = 5 }: CommandArgs) => {
+  if (interaction.client.guilds.cache.size >= 10) return interaction.reply("❌ I can't create more testing areas, I've reached Discord's limit of 10 guilds per bot.");
 
   await interaction.deferReply();
 
@@ -108,7 +108,7 @@ export default (async (interaction, { name, channels = 5 }: CommandArgs, { slash
   ] as Array<TextChannel>;
 
   setup.send({
-    content: `${slash} To set up slash commands in this server, please authorize me: ${interaction.client.generateInvite({
+    content: `ℹ To set up slash commands in this server, please authorize me: ${interaction.client.generateInvite({
       scopes: ["applications.commands"],
       guild,
       disableGuildSelect: true,
@@ -142,5 +142,5 @@ export default (async (interaction, { name, channels = 5 }: CommandArgs, { slash
     inviteCode: invite.code,
   });
 
-  interaction.editReply(`${success} Area **${name}** created! Here's an invite: ${invite.url}`);
+  interaction.editReply(`✅ Area **${name}** created! Here's an invite: ${invite.url}`);
 }) as SlashCommand["execute"];

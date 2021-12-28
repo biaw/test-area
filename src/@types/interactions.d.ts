@@ -1,6 +1,5 @@
 import { ApplicationCommandOptionData, CommandInteraction, ContextMenuInteraction } from "discord.js";
 import { AreaPermission, GlobalPermission } from "./permissions";
-import { EmojiDatabase } from "./emojis";
 
 export type Command = {
   globalPermissionLevel?: GlobalPermission;
@@ -10,11 +9,11 @@ export type Command = {
 export type SlashCommand = {
   description: string;
   options?: Array<ApplicationCommandOptionData>;
-  execute(interaction: CommandInteraction, args: CommandArguments, emojis: EmojiDatabase): Promise<void>;
+  execute(interaction: CommandInteraction, args: CommandArguments): Promise<void>;
 } & Command
 
 export type UserCommand = {
-  execute(interaction: ContextMenuInteraction, emojis: EmojiDatabase): Promise<void>;
+  execute(interaction: ContextMenuInteraction): Promise<void>;
 } & Command
 
 export type CommandArguments = {

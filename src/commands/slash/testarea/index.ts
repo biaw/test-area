@@ -50,16 +50,16 @@ export default {
       ],
     },
   ],
-  execute: async (interaction, { create, list, delete: _delete }: CommandArgs, { slash, success, error, blank }) => {
-    if (create) return subcommandCreate(interaction, create, { slash, success, error });
+  execute: async (interaction, { create, list, delete: _delete }: CommandArgs) => {
+    if (create) return subcommandCreate(interaction, create);
     if (list) {
       const areaList = await areas.get();
 
       const guilds = interaction.client.guilds.cache.filter(g => Object.keys(areaList).includes(g.id));
-      if (!guilds.size) return interaction.reply(`${error} No areas found.`);
+      if (!guilds.size) return interaction.reply("❌ No areas found.");
 
       return interaction.reply({
-        content: `${success} You have ${guilds.size}/${10 - (interaction.client.guilds.cache.size - guilds.size)} testing areas created.`,
+        content: `✅ You have ${guilds.size}/${10 - (interaction.client.guilds.cache.size - guilds.size)} testing areas created.`,
         embeds: await Promise.all(guilds.map(async guild => {
           const users = await guild.members.fetch();
           const members = users.filter(m => !m.user.bot).sort((a, b) => {
@@ -77,7 +77,7 @@ export default {
               {
                 name: "Humans",
                 value: members.map(member => {
-                  let emoji = blank;
+                  let emoji = "➖";
                   if (member.id === areaList[guild.id].ownerId) emoji = "👑";
                   else if (areaList[guild.id].elevated.includes(member.id)) emoji = "👍";
 
@@ -98,11 +98,11 @@ export default {
     }
     if (_delete) {
       const guild = interaction.client.guilds.cache.get(_delete.guild);
-      if (!guild) return interaction.reply(`${error} Area doesn't exist.`);
+      if (!guild) return interaction.reply("❌ Area doesn't exist.");
 
       await guild.delete();
       await areas.delete(guild.id);
-      return interaction.reply(`${success} Area deleted.`);
+      return interaction.reply("✅ Area deleted.");
     }
   },
   globalPermissionLevel: "ACCESS",

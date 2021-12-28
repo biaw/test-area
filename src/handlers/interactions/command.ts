@@ -3,7 +3,6 @@ import { CommandInteraction, CommandInteractionOptionResolver } from "discord.js
 import { areaCommands, globalCommands, slashCommandsFolder } from ".";
 import { testAreaPermission, testGlobalPermission } from "../../utils/permissions";
 import { Area } from "../../@types/area";
-import { emojis } from "../../utils/database";
 import { inspect } from "util";
 import { join } from "path";
 import { permissionError } from "../../constants/messages";
@@ -17,7 +16,7 @@ export default async (interaction: CommandInteraction, area?: Area) => {
     const hasPermission = areaPermissionLevel ? testAreaPermission(interaction.user.id, area, areaPermissionLevel) : true;
     if (!hasPermission) return interaction.reply(permissionError);
 
-    return execute(interaction, convertArguments(interaction.options.data), await emojis.get());
+    return execute(interaction, convertArguments(interaction.options.data));
   }
 
   const globalCommand = globalCommands.find(command => command.name === interaction.commandName);
@@ -27,7 +26,7 @@ export default async (interaction: CommandInteraction, area?: Area) => {
     const hasPermission = globalPermissionLevel ? await testGlobalPermission(interaction.user.id, globalPermissionLevel) : true;
     if (!hasPermission) return interaction.reply(permissionError);
 
-    return execute(interaction, convertArguments(interaction.options.data), await emojis.get());
+    return execute(interaction, convertArguments(interaction.options.data));
   }
 
   return void testAreaLogger.warn(`Unknown command interaction: ${inspect(interaction.toJSON())}`);

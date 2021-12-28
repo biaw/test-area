@@ -33,7 +33,7 @@ export default (async client => {
     if (interaction.isButton() || interaction.isSelectMenu()) return componentHandler(interaction);
 
     const currentAreas = await areas.get();
-    const area = currentAreas[interaction.guildId];
+    const area = interaction.guildId ? currentAreas[interaction.guildId] : undefined;
 
     if (interaction.isCommand()) return commandHandler(interaction, area);
     if (interaction.isContextMenu()) return contextMenuHandler(interaction, area);

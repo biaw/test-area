@@ -3,7 +3,7 @@ import { areas } from "../../utils/database";
 
 export default {
   execute: async (interaction, { success, error }) => {
-    const area = await areas.get(interaction.guildId);
+    const area = await areas.get(interaction.guildId as string);
     if (!area) return;
 
     if (interaction.targetId === area.ownerId) {
@@ -29,7 +29,7 @@ export default {
       });
     }
 
-    areas.set(interaction.guildId, area);
+    areas.set(interaction.guildId as string, area);
   },
   areaPermissionLevel: "OWNER",
 } as UserCommand;

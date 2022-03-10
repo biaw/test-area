@@ -39,7 +39,7 @@ docker run --name test-area \
   -e "DISCORD_OWNER_ID=" \
   -v /test-area/database:/app/database \
   -v /test-area/logs:/app/logs \
-  promisesolutions/test-area:latest
+  ghcr.io/biaw/test-area:latest
 ```
 
 #### Windows
@@ -50,7 +50,7 @@ docker run --name test-area ^
   -e "DISCORD_OWNER_ID=" ^
   -v "C:\test-area\database":/app/database ^
   -v "C:\test-area\logs":/app/logs ^
-  promisesolutions/test-area:latest
+  ghcr.io/biaw/test-area:latest
 ```
 
 ## Screenshots

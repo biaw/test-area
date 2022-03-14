@@ -23,7 +23,7 @@
     "@biaw/eslint-config": "^1.0.2",
     "@types/node": "^16.11.26",
     "@types/quick-store": "^0.1.0",
-    "eslint": "^8.10.0",
+    "eslint": "^8.11.0",
     "typescript": "^4.6.2"
   },
   "eslintConfig": {

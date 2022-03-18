@@ -1,8 +1,8 @@
 import { areaCommands, globalCommands, userCommandsFolder } from ".";
 import { testAreaPermission, testGlobalPermission } from "../../utils/permissions";
-import { Area } from "../../@types/area";
-import { ContextMenuInteraction } from "discord.js";
-import { UserCommand } from "../../@types/interactions";
+import type { Area } from "../../@types/area";
+import type { ContextMenuInteraction } from "discord.js";
+import type { UserCommand } from "../../@types/interactions";
 import { inspect } from "util";
 import { join } from "path";
 import { permissionError } from "../../constants/messages";

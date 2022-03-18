@@ -1,4 +1,4 @@
-import { Area } from "../../@types/area";
+import type { Area } from "../../@types/area";
 import { createDatabase } from "./quick";
 
 export const areas = createDatabase<Area>("areas");

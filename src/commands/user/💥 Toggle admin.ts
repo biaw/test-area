@@ -1,4 +1,4 @@
-import { UserCommand } from "../../@types/interactions";
+import type { UserCommand } from "../../@types/interactions";
 import { areas } from "../../utils/database";
 
 export default {

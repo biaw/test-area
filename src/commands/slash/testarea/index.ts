@@ -1,5 +1,5 @@
 import subcommandCreate, { CommandArgs as SubcommandCreateArgs } from "./create";
-import { SlashCommand } from "../../../@types/interactions";
+import type { SlashCommand } from "../../../@types/interactions";
 import { areas } from "../../../utils/database";
 
 type CommandArgs = {

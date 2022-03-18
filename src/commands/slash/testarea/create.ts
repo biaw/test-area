@@ -1,5 +1,5 @@
-import { SlashCommand } from "../../../@types/interactions";
-import { TextChannel } from "discord.js";
+import type { SlashCommand } from "../../../@types/interactions";
+import type { TextChannel } from "discord.js";
 import { areas } from "../../../utils/database";
 
 export type CommandArgs = {

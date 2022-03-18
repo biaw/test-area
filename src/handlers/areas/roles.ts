@@ -1,5 +1,5 @@
-import { Area } from "../../@types/area";
-import { GuildMember } from "discord.js";
+import type { Area } from "../../@types/area";
+import type { GuildMember } from "discord.js";
 
 export function updateRoles(member: GuildMember, area: Area) {
   let roles = Array.from(member.roles.cache.keys());

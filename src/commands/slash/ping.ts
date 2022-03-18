@@ -1,4 +1,4 @@
-import { SlashCommand } from "../../@types/interactions";
+import type { SlashCommand } from "../../@types/interactions";
 import { msToTime } from "../../utils/time";
 
 export default {

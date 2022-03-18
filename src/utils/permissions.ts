@@ -1,5 +1,5 @@
-import { AreaPermission, GlobalPermission } from "../@types/permissions";
-import { Area } from "../@types/area";
+import type { AreaPermission, GlobalPermission } from "../@types/permissions";
+import type { Area } from "../@types/area";
 import { access } from "./database";
 import config from "../config";
 

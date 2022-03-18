@@ -1,4 +1,4 @@
-import { Handler } from "../../@types/handler";
+import type { Handler } from "../../@types/handler";
 import { areas } from "../../utils/database";
 import { components } from "../interactions/component";
 import { registerCommands } from "./commands";

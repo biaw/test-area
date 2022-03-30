@@ -1,8 +1,8 @@
-import { CommandArguments, SlashCommand } from "../../@types/interactions";
-import { CommandInteraction, CommandInteractionOptionResolver } from "discord.js";
+import type { CommandArguments, SlashCommand } from "../../@types/interactions";
+import type { CommandInteraction, CommandInteractionOptionResolver } from "discord.js";
 import { areaCommands, globalCommands, slashCommandsFolder } from ".";
 import { testAreaPermission, testGlobalPermission } from "../../utils/permissions";
-import { Area } from "../../@types/area";
+import type { Area } from "../../@types/area";
 import { inspect } from "util";
 import { join } from "path";
 import { permissionError } from "../../constants/messages";

@@ -1,4 +1,4 @@
-import { SlashCommand } from "../../@types/interactions";
+import type { SlashCommand } from "../../@types/interactions";
 import { inspect } from "util";
 
 export default {

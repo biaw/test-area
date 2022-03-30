@@ -1,7 +1,7 @@
-import { ApplicationCommand, Guild, GuildApplicationCommandPermissionData } from "discord.js";
+import type { ApplicationCommand, Guild, GuildApplicationCommandPermissionData } from "discord.js";
 import { areaCommands, slashCommandsFolder, userCommandsFolder } from "../interactions";
-import { Area } from "../../@types/area";
-import { SlashCommand } from "../../@types/interactions";
+import type { Area } from "../../@types/area";
+import type { SlashCommand } from "../../@types/interactions";
 import { areas } from "../../utils/database";
 import { join } from "path";
 

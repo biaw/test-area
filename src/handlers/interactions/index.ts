@@ -1,6 +1,6 @@
-import { SlashCommand, UserCommand } from "../../@types/interactions";
-import { ApplicationCommandData } from "discord.js";
-import { Handler } from "../../@types/handler";
+import type { SlashCommand, UserCommand } from "../../@types/interactions";
+import type { ApplicationCommandData } from "discord.js";
+import type { Handler } from "../../@types/handler";
 import { areas } from "../../utils/database";
 import commandHandler from "./command";
 import componentHandler from "./component";
@@ -55,8 +55,22 @@ function getCommands(path: string, type: "slash" | "user") {
         for (const file of files) {
           if (type === "slash") {
             const { description, options, areaPermissionLevel, globalPermissionLevel }: SlashCommand = (await import(join(path, file))).default;
-            if (globalPermissionLevel) globalCommands.push({ type: "CHAT_INPUT", name: file.split(".")[0], description, options });
-            else if (areaPermissionLevel) areaCommands.push({ type: "CHAT_INPUT", name: file.split(".")[0], description, options, defaultPermission: areaPermissionLevel === "ALL" });
+            if (globalPermissionLevel) {
+              globalCommands.push({
+                type: "CHAT_INPUT",
+                name: file.split(".")[0],
+                description,
+                ...options && { options },
+              });
+            } else if (areaPermissionLevel) {
+              areaCommands.push({
+                type: "CHAT_INPUT",
+                name: file.split(".")[0],
+                description,
+                ...options && { options },
+                defaultPermission: areaPermissionLevel === "ALL",
+              });
+            }
           } else if (type === "user") {
             const { areaPermissionLevel, globalPermissionLevel }: UserCommand = (await import(join(path, file))).default;
             if (globalPermissionLevel) globalCommands.push({ type: "USER", name: file.split(".")[0] });

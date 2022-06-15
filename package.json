@@ -24,7 +24,7 @@
     "@tsconfig/node16-strictest": "^1.0.2",
     "@types/node": "^16.11.40",
     "@types/quick-store": "^0.1.0",
-    "eslint": "^8.14.0",
+    "eslint": "^8.17.0",
     "typescript": "^4.6.4"
   },
   "eslintConfig": {

@@ -25,7 +25,7 @@
     "@types/node": "^16.11.40",
     "@types/quick-store": "^0.1.0",
     "eslint": "^8.14.0",
-    "typescript": "^4.6.4"
+    "typescript": "^4.7.3"
   },
   "eslintConfig": {
     "extends": "@biaw"

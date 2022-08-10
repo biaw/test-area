@@ -1,4 +1,4 @@
-FROM node:16-alpine@sha256:319f098302bcbf6273fab6627c0af487cf9f21063c9283495f33d17d616cfc34
+FROM node:16-alpine@sha256:0a997e0acb61ec89bb4d78e97aca3cd4ccd7f75c3a3985ffee7e7e09434ab1e7
 RUN apk add dumb-init g++ gcc make python3
 
 WORKDIR /app

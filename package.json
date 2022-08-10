@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "bufferutil": "4.0.6",
-    "discord.js": "13.9.2",
+    "discord.js": "13.10.2",
     "dotenv": "16.0.1",
     "erlpack": "github:discord/erlpack",
     "quick-store": "0.1.4",

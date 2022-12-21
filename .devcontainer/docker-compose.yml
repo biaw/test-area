@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  code:
+    image: mcr.microsoft.com/devcontainers/javascript-node:0-18-bullseye@sha256:b8fdf692000e1cce5fe7dd76bca65acf30a8039295d8d0f05a304a15a89b19ec
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    network_mode: service:db
+  db:
+    image: mongo:4@sha256:1fd5dbccbe349fe6eeb58f2327044aa9392f80ee5ea1f9317ed3a10591c14f07
+    restart: unless-stopped
+    volumes:
+      - ../database:/data/db

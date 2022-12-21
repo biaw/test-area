@@ -1,0 +1,46 @@
+{
+	"name": "Node.js with MongoDB container",
+
+	// docker compose devcontainer
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "code",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+	// ports
+	"forwardPorts": [],
+	"portsAttributes": {},
+	"otherPortsAttributes": {
+		"onAutoForward": "ignore"
+	},
+
+	// vscode customizations
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"aaron-bond.better-comments",
+				"mikestead.dotenv",
+				"dbaeumer.vscode-eslint",
+				"christian-kohler.npm-intellisense",
+				"meganrogge.template-string-converter"
+			],
+			"settings": {
+				"editor.defaultFormatter": "dbaeumer.vscode-eslint",
+				"editor.formatOnPaste": true,
+				"editor.formatOnSave": true,
+				"eslint.format.enable": true,
+				"files.trimFinalNewlines": true,
+				"files.trimTrailingWhitespace": true,
+				"typescript.tsdk": "node_modules\\typescript\\lib"
+			}
+		}
+	},
+
+	// commands
+	"onCreateCommand": "cp ./.devcontainer/development.env ./.env",
+	"postCreateCommand": "npm ci",
+
+	// other features
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {}
+	}
+}

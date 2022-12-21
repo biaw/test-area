@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  bot:
+    build: .
+    restart: always
+    environment:
+      - DATABASE_URI=mongodb://db
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - db
+  db:
+    image: mongo:4@sha256:1fd5dbccbe349fe6eeb58f2327044aa9392f80ee5ea1f9317ed3a10591c14f07
+    restart: always
+    volumes:
+      - ./database:/data/db

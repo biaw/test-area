@@ -1,0 +1,72 @@
+{
+  "name": "test-area",
+  "license": "MIT",
+  "author": "Glenn <glenn@not-tech.support> (https://not-tech.support)",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/promise"
+    },
+    {
+      "type": "patreon",
+      "url": "https://patreon.com/promises"
+    },
+    "http://paypal.me/nottechsupport"
+  ],
+  "main": "build",
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "docker": "npm run docker:build && npm run docker:up",
+    "docker:build": "docker-compose --project-directory . build",
+    "docker:down": "docker-compose --project-directory . down",
+    "docker:logs": "docker-compose --project-directory . logs --tail=500 -f",
+    "docker:start": "npm run docker:up",
+    "docker:stop": "npm run docker:down",
+    "docker:up": "docker-compose --project-directory . up -d",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start": "node .",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@sapphire/type": "2.3.0",
+    "@typegoose/typegoose": "9.13.2",
+    "dedent": "0.7.0",
+    "discord.js": "14.7.1",
+    "dotenv": "16.0.3",
+    "mongoose": "6.7.5",
+    "superagent": "8.0.6",
+    "winston": "3.8.2",
+    "winston-daily-rotate-file": "4.7.1"
+  },
+  "devDependencies": {
+    "@tsconfig/node18-strictest": "1.0.0",
+    "@types/dedent": "0.7.0",
+    "@types/jest": "29.2.4",
+    "@types/node": "18.11.17",
+    "@types/superagent": "4.1.16",
+    "eslint": "8.30.0",
+    "eslint-config-promise": "github:promise/eslint-config",
+    "jest": "29.3.1",
+    "ts-jest": "29.0.3",
+    "typescript": "4.6.4"
+  },
+  "optionalDependencies": {
+    "bufferutil": "4.0.7",
+    "erlpack": "github:discord/erlpack",
+    "utf-8-validate": "5.0.10",
+    "zlib-sync": "0.1.7"
+  },
+  "eslintConfig": {
+    "extends": "promise"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "<rootDir>/build/",
+      "<rootDir>/node_modules/"
+    ]
+  }
+}

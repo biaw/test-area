@@ -3,7 +3,6 @@ import type{ Caches } from "discord.js";
 import config from "./config";
 import { connection } from "./database";
 import { discordLogger } from "./utils/logger/discord";
-import handleAutomaticTokenReset from "./handlers/automaticTokenReset";
 import handleInteractions from "./handlers/interactions";
 import handleMentionCommands from "./handlers/mentionCommands";
 import { inspect } from "util";
@@ -57,7 +56,6 @@ const client = new Client({
 client.once("ready", trueClient => {
   mainLogger.info(`Logged in as ${trueClient.user.tag}!`);
 
-  handleAutomaticTokenReset(trueClient);
   handleInteractions(trueClient);
   handleMentionCommands(trueClient);
 });

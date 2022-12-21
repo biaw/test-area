@@ -36,7 +36,6 @@
     "discord.js": "14.7.1",
     "dotenv": "16.0.3",
     "mongoose": "6.7.5",
-    "superagent": "8.0.6",
     "winston": "3.8.2",
     "winston-daily-rotate-file": "4.7.1"
   },
@@ -45,7 +44,6 @@
     "@types/dedent": "0.7.0",
     "@types/jest": "29.2.4",
     "@types/node": "18.11.17",
-    "@types/superagent": "4.1.16",
     "eslint": "8.30.0",
     "eslint-config-promise": "github:promise/eslint-config",
     "jest": "29.3.1",

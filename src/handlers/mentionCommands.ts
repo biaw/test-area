@@ -8,17 +8,17 @@ import { mainLogger } from "../utils/logger/main";
 
 const replies = new Map<Snowflake, Message>();
 
-export default function handleMentionCommands(client: Client<true>, isWorker?: true): void {
+export default function handleMentionCommands(client: Client<true>, workerName?: string): void {
   client
-    .on("messageCreate", message => handleMessage(message, isWorker))
+    .on("messageCreate", message => handleMessage(message, workerName))
     .on("messageUpdate", async (_, potentialPartialMessage) => {
-      if (replies.has(potentialPartialMessage.id)) handleMessage(potentialPartialMessage.partial ? await potentialPartialMessage.fetch() : potentialPartialMessage, isWorker);
+      if (replies.has(potentialPartialMessage.id)) handleMessage(potentialPartialMessage.partial ? await potentialPartialMessage.fetch() : potentialPartialMessage, workerName);
     });
 
-  mainLogger.info("Mention command listener registered.");
+  mainLogger.info(`Mention command listener registered.${workerName ? ` (${workerName})` : ""}`);
 }
 
-function handleMessage(message: Message, isWorker?: true): void {
+function handleMessage(message: Message, workerName?: string): void {
   if (
     !message.inGuild() ||
     message.author.bot ||
@@ -33,7 +33,7 @@ function handleMessage(message: Message, isWorker?: true): void {
   const quickResponse = quickResponses.find(([triggers]) => triggers.includes(trigger));
   if (quickResponse) return void reply(quickResponse[1], message, existingReply);
 
-  const command = allMentionCommands.filter(({ worksIn }) => worksIn.includes(isWorker ? "test-areas" : "non-test-areas")).find(({ names }) => names.includes(trigger));
+  const command = allMentionCommands.filter(({ worksIn }) => worksIn.includes(workerName ? "test-areas" : "non-test-areas")).find(({ names }) => names.includes(trigger));
   if (!command) return void reply(`❓ Command \`${escapeInlineCode(fitText(trigger, 20))}\` not found.`, message, existingReply);
   if (command.ownerOnly && message.author.id !== config.ownerId) return void reply("⛔ You don't have permission to do this.", message, existingReply);
   if (!command.testArgs(args)) return void reply("❓ Invalid arguments provided.", message, existingReply);

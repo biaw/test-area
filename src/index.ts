@@ -58,6 +58,7 @@ client.once("ready", trueClient => {
 
   handleInteractions(trueClient);
   handleMentionCommands(trueClient);
+  handleWorkers(trueClient);
 });
 
 // discord debug logging

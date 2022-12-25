@@ -20,5 +20,5 @@ export default function handleInteractions(client: Client<true>): void {
 
   mainLogger.info("Interaction command listener registered.");
 
-  void client.guilds.cache.get(config.guildId)!.commands.set(getAllApplicationCommands()).then(() => mainLogger.info("Application commands registered."));
+  void client.application.commands.set(getAllApplicationCommands()).then(() => mainLogger.info("Application commands registered."));
 }

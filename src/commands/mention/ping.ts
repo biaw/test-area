@@ -3,6 +3,7 @@ import { msToHumanShortTime } from "../../utils/time";
 
 export default {
   names: ["ping", "pong", ""],
+  worksIn: ["test-areas", "non-test-areas"],
   testArgs(args) { return args.length === 0; },
   async execute(message, reply) {
     const now = Date.now();

@@ -5,6 +5,7 @@ import { readdirSync } from "fs";
 interface BaseMenuCommand {
   name: string;
   public?: true;
+  worksIn: Array<"non-test-areas" | "test-areas">;
 }
 
 export interface UserMenuCommand extends BaseMenuCommand {

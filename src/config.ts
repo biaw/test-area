@@ -5,6 +5,7 @@ export default {
     id: String(process.env["CLIENT_ID"]),
     token: String(process.env["CLIENT_TOKEN"]),
   },
+  workerTokens: String(process.env["WORKER_TOKENS"]).split(","),
 
   databaseUri: String(process.env["DATABASE_URI"]),
 

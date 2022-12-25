@@ -1,50 +1,54 @@
 import type{ ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData } from "discord.js";
-import type{ ChatInput, ChatInputCommand, ChatInputCommandOptionData, ChatInputCommandOptionDataAutocomplete, ChatInputSubcommand } from "./chatInput";
+import type{ ChatInputCommand, ChatInputCommandExecutable, ChatInputCommandOptionData, ChatInputCommandOptionDataAutocomplete } from "./chatInput";
 import { ApplicationCommandOptionType } from "discord.js";
 import { ApplicationCommandType } from "discord.js";
 import { allChatInputCommands } from "./chatInput";
 import { allMenuCommands } from "./menu";
 
-export default function getAllApplicationCommands(): ApplicationCommandData[] {
+export default function getAllApplicationCommands(commandType?: ("non-test-areas" | "test-areas")): ApplicationCommandData[] {
   const applicationCommands: ApplicationCommandData[] = [];
 
   for (const command of allChatInputCommands) {
-    applicationCommands.push({
-      name: command.name,
-      description: command.description,
-      type: ApplicationCommandType.ChatInput,
-      ...chatInputIsCommandOrSubcommand(command) ?
-        { ...command.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(command.options) }} :
-        {
-          options: command.subcommands.map(subcommand => ({
-            name: subcommand.name,
-            description: subcommand.description,
-            ...chatInputIsCommandOrSubcommand(subcommand) ?
-              {
-                type: ApplicationCommandOptionType.Subcommand,
-                ...subcommand.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(subcommand.options) },
-              } :
-              {
-                type: ApplicationCommandOptionType.SubcommandGroup,
-                options: subcommand.subcommands.map(subsubcommand => ({
-                  name: subsubcommand.name,
-                  description: subsubcommand.description,
+    if (!commandType || command.worksIn.includes(commandType)) {
+      applicationCommands.push({
+        name: command.name,
+        description: command.description,
+        type: ApplicationCommandType.ChatInput,
+        ...chatInputIsExecutable(command) ?
+          { ...command.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(command.options) }} :
+          {
+            options: command.subcommands.map(subcommand => ({
+              name: subcommand.name,
+              description: subcommand.description,
+              ...chatInputIsExecutable(subcommand) ?
+                {
                   type: ApplicationCommandOptionType.Subcommand,
-                  ...subsubcommand.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(subsubcommand.options) },
-                })),
-              },
-          })),
-        },
-      ...!command.public && { defaultMemberPermissions: 0n },
-    });
+                  ...subcommand.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(subcommand.options) },
+                } :
+                {
+                  type: ApplicationCommandOptionType.SubcommandGroup,
+                  options: subcommand.subcommands.map(subsubcommand => ({
+                    name: subsubcommand.name,
+                    description: subsubcommand.description,
+                    type: ApplicationCommandOptionType.Subcommand,
+                    ...subsubcommand.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(subsubcommand.options) },
+                  })),
+                },
+            })),
+          },
+        ...!command.public && { defaultMemberPermissions: 0n },
+      });
+    }
   }
 
   for (const command of allMenuCommands) {
-    applicationCommands.push({
-      name: command.name,
-      type: command.type === "message" ? ApplicationCommandType.Message : ApplicationCommandType.User,
-      ...!command.public && { defaultMemberPermissions: 0n },
-    });
+    if (!commandType || command.worksIn.includes(commandType)) {
+      applicationCommands.push({
+        name: command.name,
+        type: command.type === "message" ? ApplicationCommandType.Message : ApplicationCommandType.User,
+        ...!command.public && { defaultMemberPermissions: 0n },
+      });
+    }
   }
 
   return applicationCommands;
@@ -57,9 +61,9 @@ function convertChatInputCommandOptionsToApplicationCommandOptions(chatInputComm
   });
 }
 
-function chatInputIsCommandOrSubcommand(chatInputCommand: ChatInput): chatInputCommand is ChatInputCommand | ChatInputSubcommand {
+function chatInputIsExecutable(chatInputCommand: ChatInputCommand): chatInputCommand is ChatInputCommandExecutable & typeof chatInputCommand {
   // it's basically the same so it doesn't really matter
-  return !("subcommands" in chatInputCommand);
+  return "execute" in chatInputCommand;
 }
 
 function chatInputCommandOptionIsAutocomplete(option: ChatInputCommandOptionData): option is ChatInputCommandOptionDataAutocomplete {

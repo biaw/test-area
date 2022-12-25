@@ -1,13 +1,16 @@
 import type{ ApplicationCommandOptionChoiceData, AutocompleteInteraction, Awaitable } from "discord.js";
+import type{ ChatInputCommand } from "../../commands/chatInput";
 import { allChatInputCommands } from "../../commands/chatInput";
 
 export type Autocomplete<QueryType extends number | string> = (query: QueryType, interaction: AutocompleteInteraction<"cached">) => Awaitable<Array<ApplicationCommandOptionChoiceData<QueryType>>>;
 
 export default async function autocompleteHandler(interaction: AutocompleteInteraction<"cached">): Promise<void> {
   const hierarchy = [interaction.commandName, interaction.options.getSubcommandGroup(false), interaction.options.getSubcommand(false)] as const;
-  let command = allChatInputCommands.find(({ name }) => name === hierarchy[0]);
-  if (command && hierarchy[1] && "subcommands" in command) command = command.subcommands.find(({ name }) => name === hierarchy[1]);
-  if (command && hierarchy[2] && "subcommands" in command) command = command.subcommands.find(({ name }) => name === hierarchy[2]);
+  const firstLevelCommand = allChatInputCommands.find(({ name }) => name === hierarchy[0]) ?? null;
+
+  let command: ChatInputCommand | null = firstLevelCommand;
+  if (firstLevelCommand && hierarchy[1] && "subcommands" in firstLevelCommand) command = firstLevelCommand.subcommands.find(({ name }) => name === hierarchy[1]) ?? null;
+  if (command && hierarchy[2] && "subcommands" in command) command = command.subcommands.find(({ name }) => name === hierarchy[2]) ?? null;
 
   if (command && "options" in command) {
     const { name, value } = interaction.options.getFocused(true);

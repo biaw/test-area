@@ -13,6 +13,7 @@ import { randomBytes } from "crypto";
 export default {
   names: ["eval", "evaluate", "run"],
   ownerOnly: true,
+  worksIn: ["test-areas", "non-test-areas"],
   testArgs(args) { return args.length > 0; },
   // eslint-disable-next-line id-length, @typescript-eslint/no-unused-expressions, @typescript-eslint/brace-style -- the dollar sign is the message, we need this for context in the eval function, @typescript-eslint/brace-style
   execute($, reply, args) { $;

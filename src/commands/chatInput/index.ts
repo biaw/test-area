@@ -2,18 +2,30 @@ import type{ ApplicationCommandAutocompleteNumericOptionData, ApplicationCommand
 import type{ Autocomplete } from "../../handlers/interactions/autocompletes";
 import { readdirSync } from "fs";
 
-export interface ChatInputCommand {
-  name: string;
-  description: string;
+export type FirstLevelChatInputCommand = ChatInputCommandMeta & {
+  public?: true;
+  worksIn: Array<"non-test-areas" | "test-areas">;
+} & (ChatInputCommandExecutable | ChatInputCommandGroup<SecondLevelChatInputCommand>);
+
+export type SecondLevelChatInputCommand = ChatInputCommandMeta & (ChatInputCommandExecutable | ChatInputCommandGroup<ThirdLevelChatInputCommand>);
+
+export type ThirdLevelChatInputCommand = ChatInputCommandExecutable & ChatInputCommandMeta;
+
+export type ChatInputCommand = FirstLevelChatInputCommand | SecondLevelChatInputCommand | ThirdLevelChatInputCommand;
+
+export interface ChatInputCommandExecutable {
   options?: [ChatInputCommandOptionData, ...ChatInputCommandOptionData[]];
   execute(interaction: ChatInputCommandInteraction<"cached">): Awaitable<void>;
 }
 
-export type ChatInputSubcommand = ChatInputCommand;
-export type ChatInputGroup = Omit<ChatInputCommand, "execute" | "options"> & { subcommands: [(ChatInputSubcommand | ChatInputSubcommandGroup), ...Array<ChatInputSubcommand | ChatInputSubcommandGroup>]};
-export type ChatInputSubcommandGroup = Omit<ChatInputGroup, "subcommands"> & { subcommands: [ChatInputSubcommand, ...ChatInputSubcommand[]]};
+export interface ChatInputCommandGroup<NthLevelChatInputCommand extends SecondLevelChatInputCommand | ThirdLevelChatInputCommand> {
+  subcommands: [NthLevelChatInputCommand, ...NthLevelChatInputCommand[]];
+}
 
-export type ChatInput = ({ public?: true }) & (ChatInputCommand | ChatInputGroup);
+export interface ChatInputCommandMeta {
+  name: string;
+  description: string;
+}
 
 export type ChatInputCommandOptionDataAutocomplete =
   | (Omit<ApplicationCommandAutocompleteNumericOptionData, "autocomplete"> & { autocomplete: Autocomplete<number> })
@@ -34,4 +46,4 @@ export type ChatInputCommandOptionData = ChatInputCommandOptionDataAutocomplete 
 export const allChatInputCommands = readdirSync(__dirname)
   .filter(file => !file.includes("index") && (file.endsWith(".js") || file.endsWith(".ts")))
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires -- we need this for it to be synchronous
-  .map(file => require(`./${file}`).default as ChatInput);
+  .map(file => require(`./${file}`).default as FirstLevelChatInputCommand);

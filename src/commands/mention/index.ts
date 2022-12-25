@@ -5,6 +5,7 @@ import { readdirSync } from "fs";
 export interface MentionCommand {
   names: [string, ...string[]];
   ownerOnly?: true;
+  worksIn: Array<"non-test-areas" | "test-areas">;
   testArgs(args: string[]): boolean;
   execute(message: Message<true>, reply: (content: MessageReplyOptions | string) => Promise<Message>, args: string[]): Awaitable<void>;
 }

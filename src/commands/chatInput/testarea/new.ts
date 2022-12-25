@@ -98,7 +98,6 @@ export default {
             id: Roles.AdminPerms,
             name: "💥",
             color: "Red",
-            hoist: true,
             permissions: ["Administrator"],
           },
           {
@@ -113,13 +112,27 @@ export default {
         systemChannelId: Channels.EntryLog,
       })
         .then(async newTestArea => {
+          // invite
           const entryChannel = newTestArea.channels.cache.find(({ name }) => name === "entry-log") as BaseGuildTextChannel;
           const newInvite = await entryChannel.createInvite({ maxAge: 0, maxUses: 0 });
+
+          // manager role
+          const managerRole = newTestArea.roles.cache.find(({ name }) => name === "🔧")!;
+          void newTestArea.members.fetchMe().then(me => me.roles.add(managerRole));
+
+          // saving to database and then returning
           await TestArea.create({
             serverId: newTestArea.id,
             botId: worker.user.id,
             ownerId: interaction.user.id,
+            roles: {
+              ownerId: newTestArea.roles.cache.find(({ name }) => name === "👑")!.id,
+              botId: newTestArea.roles.cache.find(({ name }) => name === "🤖")!.id,
+              adminId: newTestArea.roles.cache.find(({ name }) => name === "💥")!.id,
+            },
+            invite: invite.url,
           });
+
           return [newTestArea, newInvite] as const;
         }),
       interaction.deferReply(),

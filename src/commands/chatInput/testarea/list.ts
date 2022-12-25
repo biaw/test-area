@@ -112,6 +112,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
           iconUrl: owner.displayAvatarURL({ size: 32 }),
         },
         title: guild?.name ?? `Unknown guild ${testArea.serverId}`,
+        url: testArea.invite,
         ...guild && {
           description: `created ${time(guild.createdAt, TimestampStyles.RelativeTime)} - last activity was ${time(testArea.lastActivityAt, TimestampStyles.RelativeTime)}\ninvite: todo`,
           fields: [

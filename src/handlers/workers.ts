@@ -1,6 +1,7 @@
-import type{ Caches, Snowflake } from "discord.js";
+import type{ Caches, Guild, GuildMember, Snowflake } from "discord.js";
 import { Client, IntentsBitField, Options, Partials } from "discord.js";
 import { objects, predicates } from "friendly-words";
+import { TestArea } from "../database/models/TestArea";
 import config from "../config";
 import handleInteractions from "./interactions";
 import handleMentionCommands from "./mentionCommands";
@@ -90,6 +91,12 @@ async function initWorkers(): Promise<void> {
       .on("shardResume", (id, replayed) => void discordLogger.info(`Shard ${id} resumed. ${replayed} events replayed.`))
       .on("warn", info => void discordLogger.warn(info));
 
+    // trigger guild activity update -- we really only need the message create event for this
+    worker.on("messageCreate", message => updateGuildActivity(message.guild!));
+
+    // give roles upon joining the server
+    worker.on("guildMemberAdd", member => updateRoles(member));
+
     // log in
     await worker.login(token);
   }
@@ -99,4 +106,26 @@ function getWorkerUniqueName(workerId: Snowflake): string {
   const workerNumber = Number(workerId);
   const workerIndent = workerNumber % (objects.length * predicates.length);
   return `${predicates[workerIndent % predicates.length]!} ${objects[Math.floor(workerIndent / predicates.length)]!}`;
+}
+
+function updateGuildActivity(guild: Guild): void {
+  void TestArea.findOne({ serverId: guild.id })
+    .then(testArea => {
+      if (testArea) {
+        testArea.lastActivityAt = new Date();
+        void testArea.save();
+      }
+    });
+}
+
+function updateRoles(member: GuildMember): void {
+  void TestArea.findOne({ serverId: member.guild.id })
+    .then(testArea => {
+      if (testArea) {
+        const roles = [];
+        if (testArea.ownerId === member.id) roles.push(testArea.roles.ownerId, testArea.roles.adminId);
+        if (member.user.bot) roles.push(testArea.roles.botId);
+        if (roles.length) void member.roles.add(roles);
+      }
+    });
 }

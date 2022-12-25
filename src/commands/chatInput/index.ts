@@ -44,6 +44,6 @@ export type ChatInputCommandOptionDataNoAutocomplete =
 export type ChatInputCommandOptionData = ChatInputCommandOptionDataAutocomplete | ChatInputCommandOptionDataNoAutocomplete;
 
 export const allChatInputCommands = readdirSync(__dirname)
-  .filter(file => !file.includes("index") && (file.endsWith(".js") || file.endsWith(".ts")))
+  .filter(file => !file.includes("index"))
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires -- we need this for it to be synchronous
   .map(file => require(`./${file}`).default as FirstLevelChatInputCommand);

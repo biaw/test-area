@@ -5,6 +5,7 @@ export default {
   name: "ping",
   description: "Ping the bot",
   worksIn: ["test-areas", "non-test-areas"],
+  public: true,
   async execute(interaction) {
     const now = Date.now();
     await interaction.deferReply();

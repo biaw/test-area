@@ -5,7 +5,7 @@ import { ApplicationCommandType } from "discord.js";
 import { allChatInputCommands } from "./chatInput";
 import { allMenuCommands } from "./menu";
 
-export default function getAllApplicationCommands(commandType?: ("non-test-areas" | "test-areas")): ApplicationCommandData[] {
+export default function getAllApplicationCommands(commandType?: "non-test-areas" | "test-areas"): ApplicationCommandData[] {
   const applicationCommands: ApplicationCommandData[] = [];
 
   for (const command of allChatInputCommands) {
@@ -36,7 +36,7 @@ export default function getAllApplicationCommands(commandType?: ("non-test-areas
                 },
             })),
           },
-        ...!command.public && { defaultMemberPermissions: 0n },
+        ...!command.public && commandType === "non-test-areas" && { defaultMemberPermissions: 0n },
       });
     }
   }
@@ -46,7 +46,7 @@ export default function getAllApplicationCommands(commandType?: ("non-test-areas
       applicationCommands.push({
         name: command.name,
         type: command.type === "message" ? ApplicationCommandType.Message : ApplicationCommandType.User,
-        ...!command.public && { defaultMemberPermissions: 0n },
+        ...!command.public && commandType === "non-test-areas" && { defaultMemberPermissions: 0n },
       });
     }
   }

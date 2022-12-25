@@ -22,7 +22,7 @@ RUN npm run build
 FROM base AS final
 RUN npm ci --omit=dev
 
-COPY .env ./.env
+COPY .env? ./
 COPY --from=builder /app/build ./build
 
 ENV NODE_ENV=production

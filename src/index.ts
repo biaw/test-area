@@ -5,6 +5,7 @@ import { connection } from "./database";
 import { discordLogger } from "./utils/logger/discord";
 import handleInteractions from "./handlers/interactions";
 import handleMentionCommands from "./handlers/mentionCommands";
+import handleWorkers from "./handlers/workers";
 import { inspect } from "util";
 import { mainLogger } from "./utils/logger/main";
 
@@ -48,7 +49,7 @@ const client = new Client({
     Partials.User,
   ],
   presence: { status: "online" },
-  rest: { userAgentAppendix: "Bot Name (bot repository) " },
+  rest: { userAgentAppendix: "Test Area (https://github.com/biaw/test-area)" },
   ws: { compress: true },
 });
 

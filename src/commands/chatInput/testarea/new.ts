@@ -130,7 +130,7 @@ export default {
               botId: newTestArea.roles.cache.find(({ name }) => name === "🤖")!.id,
               adminId: newTestArea.roles.cache.find(({ name }) => name === "💥")!.id,
             },
-            invite: invite.url,
+            invite: newInvite.url,
           });
 
           return [newTestArea, newInvite] as const;

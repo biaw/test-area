@@ -4,6 +4,7 @@ repository:
   name: test-area
   description: "A Discord bot to easily create testing servers, without having to write in that 2FA code to delete it later"
   private: false
+  topics: "discord, discord-bot, testing-tools, utility"
 
 branches:
   - name: main

@@ -156,6 +156,9 @@ export default {
             ],
           });
 
+          // rename bot
+          void newTestArea.members.fetchMe().then(me => me.setNickname("Test Area Worker"));
+
           return [newTestArea, newInvite] as const;
         }),
       interaction.deferReply(),

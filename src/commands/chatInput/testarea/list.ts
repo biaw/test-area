@@ -114,27 +114,28 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
         title: guild?.name ?? `Unknown guild ${testArea.serverId}`,
         url: testArea.invite,
         ...guild && {
-          description: `created ${time(guild.createdAt, TimestampStyles.RelativeTime)} - last activity was ${time(testArea.lastActivityAt, TimestampStyles.RelativeTime)}\ninvite: todo`,
+          description: `created ${time(guild.createdAt, TimestampStyles.RelativeTime)} - last activity was ${time(testArea.lastActivityAt, TimestampStyles.RelativeTime)}`,
           fields: [
             {
               name: humans.length === 1 ? "1 human" : `${humans.length} humans`,
               value: humans
-                .map(member => member.user.toString())
+                .map(human => human.user.toString())
                 .sort((a, b) => a.localeCompare(b))
-                .join("\n") || "*None.*",
+                .join("\n") || "*No humans.*",
               inline: true,
             },
             {
               name: bots.length === 1 ? "1 bot" : `${bots.length} bots`,
               value: bots
-                .map(member => member.user.toString())
+                .filter(bot => bot.id !== worker.user.id)
+                .map(bot => bot.user.toString())
                 .sort((a, b) => a.localeCompare(b))
-                .join("\n") || "*None.*",
+                .join("\n") || "*No bots.*",
               inline: true,
             },
           ],
           footer: {
-            text: `worker: ${worker?.user.username ?? "n/a"}`,
+            text: `worker: ${worker?.user.username ?? "n/a"} (${testArea.botId})`,
           },
         },
       };

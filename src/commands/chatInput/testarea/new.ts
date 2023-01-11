@@ -1,7 +1,8 @@
-import { ApplicationCommandOptionType, ChannelType, GuildDefaultMessageNotifications } from "discord.js";
+import { ApplicationCommandOptionType, ButtonStyle, ChannelType, ComponentType, GuildDefaultMessageNotifications, OAuth2Scopes } from "discord.js";
 import type{ BaseGuildTextChannel, PartialChannelData } from "discord.js";
 import type{ SecondLevelChatInputCommand } from "..";
 import { TestArea } from "../../../database/models/TestArea";
+import { buttonComponents } from "../../../handlers/interactions/components";
 import { workers } from "../../../handlers/workers";
 
 enum Channels { EntryLog, HumansOnly, TestChannelCategory }
@@ -133,6 +134,28 @@ export default {
             invite: newInvite.url,
           });
 
+          // sending invite link for slash commands
+          void entryChannel.send({
+            content: `✨ For my slash commands to work, you need to add them for me ... which is stupid, but welcome to Discord. Please add me with this link:\n<${worker.generateInvite({
+              scopes: [OAuth2Scopes.ApplicationsCommands],
+              guild: newTestArea,
+              disableGuildSelect: true,
+            })}>`,
+            components: [
+              {
+                type: ComponentType.ActionRow,
+                components: [
+                  {
+                    type: ComponentType.Button,
+                    customId: "new-test-area:hide-slash-commands-notice",
+                    label: "Hide this message",
+                    style: ButtonStyle.Secondary,
+                  },
+                ],
+              },
+            ],
+          });
+
           return [newTestArea, newInvite] as const;
         }),
       interaction.deferReply(),
@@ -141,3 +164,12 @@ export default {
     return void interaction.editReply(`✅ Area **${guild.name}** created! Here's an invite: ${invite.url}`);
   },
 } as SecondLevelChatInputCommand;
+
+buttonComponents.set("new-test-area:hide-slash-commands-notice", {
+  allowedUsers: "all",
+  persistent: true,
+  async callback(button) {
+    await button.deferUpdate();
+    void button.message.delete();
+  },
+});

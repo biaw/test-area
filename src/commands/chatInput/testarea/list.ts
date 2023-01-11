@@ -127,7 +127,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
             {
               name: bots.length === 1 ? "1 bot" : `${bots.length} bots`,
               value: bots
-                .filter(bot => bot.id !== worker.user.id)
+                .filter(bot => bot.id !== worker?.user.id)
                 .map(bot => bot.user.toString())
                 .sort((a, b) => a.localeCompare(b))
                 .join("\n") || "*No bots.*",

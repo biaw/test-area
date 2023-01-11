@@ -147,7 +147,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
           {
             type: ComponentType.StringSelect,
             placeholder: {
-              [Filter.none]: "Filter ...",
+              [Filter.none]: "Filter: None",
               [Filter.active1d]: "Filter: Active (1 day)",
               [Filter.active1w]: "Filter: Active (1 week)",
               [Filter.active1m]: "Filter: Active (1 month)",
@@ -163,6 +163,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
             minValues: 0,
             maxValues: 1,
             options: [
+              { label: "None", value: String(Filter.none) },
               { label: "Active (1 day)", value: String(Filter.active1d) },
               { label: "Active (1 week)", value: String(Filter.active1w) },
               { label: "Active (1 month)", value: String(Filter.active1m) },
@@ -183,7 +184,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
           {
             type: ComponentType.StringSelect,
             placeholder: {
-              [Sort.none]: "Sort by ...",
+              [Sort.none]: "Sorting by: None",
               [Sort.creationDateAscending]: "Sorting by: Creation date (ascending)",
               [Sort.creationDateDescending]: "Sorting by: Creation date (descending)",
               [Sort.nameAZ]: "Sorting by: Name (A-Z)",
@@ -195,6 +196,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
             minValues: 1,
             maxValues: 1,
             options: [
+              { label: "None", value: String(Sort.none) },
               { label: "Creation date (ascending)", value: String(Sort.creationDateAscending) },
               { label: "Creation date (descending)", value: String(Sort.creationDateDescending) },
               { label: "Name (A-Z)", value: String(Sort.nameAZ) },

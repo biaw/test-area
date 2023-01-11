@@ -103,7 +103,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
       const owner = await interaction.client.users.fetch(testArea.ownerId, { cache: true, force: false });
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- typescript bug idk why
       const members = Array.from(await guild?.members.fetch().then(list => list.values()) ?? []) as GuildMember[];
-      const bots = members.filter(member => member.user.bot);
+      const bots = members.filter(member => member.user.bot && member.user.id !== testArea.botId);
       const humans = members.filter(member => !member.user.bot);
       return {
         color: guild ? Number(testArea.serverId) % 0xFFFFFF : Colors.Red,
@@ -127,7 +127,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
             {
               name: bots.length === 1 ? "1 bot" : `${bots.length} bots`,
               value: bots
-                .filter(bot => bot.id !== worker?.user.id)
+
                 .map(bot => bot.user.toString())
                 .sort((a, b) => a.localeCompare(b))
                 .join("\n") || "*No bots.*",

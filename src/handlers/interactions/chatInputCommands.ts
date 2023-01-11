@@ -1,7 +1,6 @@
 import type{ ChatInputCommand } from "../../commands/chatInput";
 import type{ ChatInputCommandInteraction } from "discord.js";
 import { allChatInputCommands } from "../../commands/chatInput";
-import config from "../../config";
 
 export default function chatInputCommandHandler(interaction: ChatInputCommandInteraction<"cached">): void {
   const hierarchy = [interaction.commandName, interaction.options.getSubcommandGroup(false), interaction.options.getSubcommand(false)] as const;
@@ -11,8 +10,5 @@ export default function chatInputCommandHandler(interaction: ChatInputCommandInt
   if (firstLevelCommand && hierarchy[1] && "subcommands" in firstLevelCommand) command = firstLevelCommand.subcommands.find(({ name }) => name === hierarchy[1]) ?? null;
   if (command && hierarchy[2] && "subcommands" in command) command = command.subcommands.find(({ name }) => name === hierarchy[2]) ?? null;
 
-  if (command && "execute" in command) {
-    if (!firstLevelCommand?.public && interaction.user.id !== config.ownerId) return;
-    return void command.execute(interaction);
-  }
+  if (command && "execute" in command) return void command.execute(interaction);
 }

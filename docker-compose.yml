@@ -5,7 +5,11 @@ services:
     build: .
     restart: always
     environment:
+      - CLIENT_ID=$CLIENT_ID
+      - CLIENT_TOKEN=$CLIENT_TOKEN
       - DATABASE_URI=mongodb://db
+      - OWNER_ID=$OWNER_ID
+      - THEME_COLOR=$THEME_COLOR
     volumes:
       - ./logs:/app/logs
     depends_on:

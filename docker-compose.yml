@@ -7,6 +7,7 @@ services:
     environment:
       - CLIENT_ID=$CLIENT_ID
       - CLIENT_TOKEN=$CLIENT_TOKEN
+      - WORKER_TOKENS=$WORKER_TOKENS
       - DATABASE_URI=mongodb://db
       - OWNER_ID=$OWNER_ID
       - THEME_COLOR=$THEME_COLOR

@@ -1,14 +1,16 @@
-import { createFileTransports, globalFormat } from "./";
-import { createLogger, transports } from "winston";
 import type{ Logger } from "winston";
+import { createLogger, transports } from "winston";
+import { createFileTransports, globalFormat } from ".";
 
-export const discordLogger = createLogger({
+const discordLogger = createLogger({
   format: globalFormat,
   transports: [
     ...createFileTransports("discord", ["info", "debug"]),
     new transports.Console({ level: "info" }),
   ],
 });
+
+export default discordLogger;
 
 export const workerLogger = (workerName: string): Logger => createLogger({
   format: globalFormat,

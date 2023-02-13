@@ -1,5 +1,5 @@
-import type{ ChatInputCommand } from "../../commands/chatInput";
 import type{ ChatInputCommandInteraction } from "discord.js";
+import type{ ChatInputCommand } from "../../commands/chatInput";
 import { allChatInputCommands } from "../../commands/chatInput";
 
 export default function chatInputCommandHandler(interaction: ChatInputCommandInteraction<"cached">): void {

@@ -1,13 +1,13 @@
+import { inspect } from "util";
 import type{ Caches, Guild, GuildMember, Snowflake } from "discord.js";
 import { Client, IntentsBitField, Options, Partials } from "discord.js";
 import { objects, predicates } from "friendly-words";
-import { TestArea } from "../database/models/TestArea";
 import config from "../config";
+import { TestArea } from "../database/models/TestArea";
+import { workerLogger } from "../utils/logger/discord";
+import mainLogger from "../utils/logger/main";
 import handleInteractions from "./interactions";
 import handleMentionCommands from "./mentionCommands";
-import { inspect } from "util";
-import { mainLogger } from "../utils/logger/main";
-import { workerLogger } from "../utils/logger/discord";
 
 export const workers = new Map<Snowflake, Client<true>>();
 

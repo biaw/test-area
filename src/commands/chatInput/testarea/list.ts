@@ -1,8 +1,8 @@
 import type{ APIEmbed, GuildMember, Interaction, InteractionReplyOptions, InteractionUpdateOptions } from "discord.js";
 import { ButtonStyle, Colors, ComponentType, TimestampStyles, time } from "discord.js";
-import { buttonComponents, selectMenuComponents } from "../../../handlers/interactions/components";
 import type{ SecondLevelChatInputCommand } from "..";
 import { TestArea } from "../../../database/models/TestArea";
+import { buttonComponents, selectMenuComponents } from "../../../handlers/interactions/components";
 import { workers } from "../../../handlers/workers";
 
 export default {

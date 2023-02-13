@@ -1,5 +1,5 @@
-import { ApplicationCommandOptionType, ButtonStyle, ChannelType, ComponentType, GuildDefaultMessageNotifications, OAuth2Scopes } from "discord.js";
 import type{ BaseGuildTextChannel, PartialChannelData } from "discord.js";
+import { ApplicationCommandOptionType, ButtonStyle, ChannelType, ComponentType, GuildDefaultMessageNotifications, OAuth2Scopes } from "discord.js";
 import type{ SecondLevelChatInputCommand } from "..";
 import { TestArea } from "../../../database/models/TestArea";
 import { buttonComponents } from "../../../handlers/interactions/components";

@@ -1,9 +1,9 @@
 import { ApplicationCommandOptionType } from "discord.js";
-import type{ Autocomplete } from "../../../handlers/interactions/autocompletes";
-import type{ SecondLevelChatInputCommand } from "..";
-import { TestArea } from "../../../database/models/TestArea";
-import config from "../../../config";
 import { matchSorter } from "match-sorter";
+import type{ SecondLevelChatInputCommand } from "..";
+import config from "../../../config";
+import { TestArea } from "../../../database/models/TestArea";
+import type{ Autocomplete } from "../../../handlers/interactions/autocompletes";
 import { workers } from "../../../handlers/workers";
 
 export default {

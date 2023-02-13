@@ -5,24 +5,20 @@ WORKDIR /app
 ENV IS_DOCKER=true
 
 
-# base image for package installation
+# install prod dependencies
 
-FROM base AS dep-base
+FROM base AS deps
 RUN npm install -g pnpm
 
 COPY package.json ./
 COPY pnpm-lock.yaml ./
 
-
-# install production dependencies
-
-FROM dep-base AS prod-deps
 RUN pnpm install --frozen-lockfile --prod
 
 
 # install all dependencies and build typescript
 
-FROM prod-deps AS ts-builder
+FROM deps AS ts-builder
 RUN pnpm install --frozen-lockfile
 
 COPY tsconfig.json ./
@@ -34,9 +30,9 @@ RUN pnpm run build
 
 FROM base
 
-COPY .env ./
+COPY .env* ./
+COPY --from=deps /app/node_modules ./node_modules
 COPY --from=ts-builder /app/build ./build
-COPY --from=prod-deps /app/node_modules ./node_modules
 COPY package.json ./
 
 ENV NODE_ENV=production

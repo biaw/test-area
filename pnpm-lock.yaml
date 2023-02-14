@@ -3,7 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@sapphire/type': 2.3.0
   '@tsconfig/node18-strictest': 1.0.0
-  '@typegoose/typegoose': 10.0.0
+  '@typegoose/typegoose': 10.1.1
   '@types/dedent': 0.7.0
   '@types/friendly-words': 1.2.0
   '@types/jest': 29.4.0
@@ -18,7 +18,7 @@ specifiers:
   friendly-words: 1.2.0
   jest: 29.4.2
   match-sorter: 6.3.1
-  mongoose: 6.8.4
+  mongoose: 6.9.1
   ts-jest: 29.0.5
   typescript: 4.9.5
   utf-8-validate: 5.0.10
@@ -28,13 +28,13 @@ specifiers:
 
 dependencies:
   '@sapphire/type': 2.3.0
-  '@typegoose/typegoose': 10.0.0_mongoose@6.8.4
+  '@typegoose/typegoose': 10.1.1_mongoose@6.9.1
   dedent: 0.7.0
   discord.js: 14.7.1_3cxu5zja4e2r5wmvge7mdcljwq
   dotenv: 16.0.3
   friendly-words: 1.2.0
   match-sorter: 6.3.1
-  mongoose: 6.8.4
+  mongoose: 6.9.1
   winston: 3.8.2
   winston-daily-rotate-file: 4.7.1_winston@3.8.2
 
@@ -51,7 +51,7 @@ devDependencies:
   '@types/jest': 29.4.0
   '@types/node': 18.13.0
   eslint: 8.34.0
-  eslint-config-promise: github.com/promise/eslint-config/9307ff5e449b35860442e75b6555f5c3187b20c0_2bepdrichzi2p7to35qb73hy6e
+  eslint-config-promise: github.com/promise/eslint-config/9abc3d000b48d76d3e77691bfb675a876a2f34f8_2bepdrichzi2p7to35qb73hy6e
   jest: 29.4.2_@types+node@18.13.0
   ts-jest: 29.0.5_zgilbyuumz7xbrerspmrtjuxsi
   typescript: 4.9.5
@@ -1693,15 +1693,15 @@ packages:
     resolution: {integrity: sha512-bOuNKwO4Fzbt+Su5wqI9zNHwx5C25gLnutwVQA1sBZk0cW8UjVPVcwzIUhJIIJDUx7zDEbAwdCD2HfvIsV8dYg==}
     dev: true
 
-  /@typegoose/typegoose/10.0.0_mongoose@6.8.4:
-    resolution: {integrity: sha512-40Y2yZYbyeTYFJBWucBovJlopgtKyEvyNYK2zNgw/NXOUkvijkyHeWsyPGKOXEaXqhrku/cjrVIWMbdKx2YiuA==}
+  /@typegoose/typegoose/10.1.1_mongoose@6.9.1:
+    resolution: {integrity: sha512-QzRzgFnsQ3/UTToUEVJ5ln4t/QzlznEat7bcn9tNt4U6QCytPVvTJnRe5SwrJllxakgz0yrnbKkTw9YeoiYXuQ==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
-      mongoose: ~6.8.0
+      mongoose: ~6.9.0
     dependencies:
       lodash: 4.17.21
       loglevel: 1.8.1
-      mongoose: 6.8.4
+      mongoose: 6.9.1
       reflect-metadata: 0.1.13
       semver: 7.3.8
       tslib: 2.5.0
@@ -4296,8 +4296,8 @@ packages:
       whatwg-url: 11.0.0
     dev: false
 
-  /mongodb/4.12.1:
-    resolution: {integrity: sha512-koT87tecZmxPKtxRQD8hCKfn+ockEL2xBiUvx3isQGI6mFmagWt4f4AyCE9J4sKepnLhMacoCTQQA6SLAI2L6w==}
+  /mongodb/4.13.0:
+    resolution: {integrity: sha512-+taZ/bV8d1pYuHL4U+gSwkhmDrwkWbH1l4aah4YpmpscMwgFBkufIKxgP/G7m87/NUuQzc2Z75ZTI7ZOyqZLbw==}
     engines: {node: '>=12.9.0'}
     dependencies:
       bson: 4.7.2
@@ -4310,13 +4310,13 @@ packages:
       - aws-crt
     dev: false
 
-  /mongoose/6.8.4:
-    resolution: {integrity: sha512-19Jk2hbSAPcM4u6ErW0UPwaSO2YfP/cXfBS9YEiNgNzZfXd+jkyemqJ+t2aflaicXeU4VdTP33pZYxqjk2hUYw==}
+  /mongoose/6.9.1:
+    resolution: {integrity: sha512-hOz1ZWV0w6WEVLrj89Wpk7PXDYtDDF6k7/NX79lY5iKqeFtZsceBXW8xW59YFNcW5O3cH32hQ8IbDlhgyBsDMA==}
     engines: {node: '>=12.0.0'}
     dependencies:
       bson: 4.7.2
       kareem: 2.5.1
-      mongodb: 4.12.1
+      mongodb: 4.13.0
       mpath: 0.9.0
       mquery: 4.0.3
       ms: 2.1.3
@@ -5474,14 +5474,14 @@ packages:
     dev: false
     optional: true
 
-  github.com/promise/eslint-config/9307ff5e449b35860442e75b6555f5c3187b20c0_2bepdrichzi2p7to35qb73hy6e:
-    resolution: {tarball: https://codeload.github.com/promise/eslint-config/tar.gz/9307ff5e449b35860442e75b6555f5c3187b20c0}
-    id: github.com/promise/eslint-config/9307ff5e449b35860442e75b6555f5c3187b20c0
+  github.com/promise/eslint-config/9abc3d000b48d76d3e77691bfb675a876a2f34f8_2bepdrichzi2p7to35qb73hy6e:
+    resolution: {tarball: https://codeload.github.com/promise/eslint-config/tar.gz/9abc3d000b48d76d3e77691bfb675a876a2f34f8}
+    id: github.com/promise/eslint-config/9abc3d000b48d76d3e77691bfb675a876a2f34f8
     name: eslint-config-promise
     version: 0.0.0
     peerDependencies:
-      '@typescript-eslint/eslint-plugin': ^5.51.0
-      '@typescript-eslint/parser': ^5.51.0
+      '@typescript-eslint/eslint-plugin': ^5.52.0
+      '@typescript-eslint/parser': ^5.52.0
       eslint: ^8.34.0
       eslint-import-resolver-typescript: ^3.5.3
       eslint-plugin-import: ^2.27.5

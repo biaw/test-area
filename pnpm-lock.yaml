@@ -18,7 +18,7 @@ specifiers:
   friendly-words: 1.2.0
   jest: 29.4.3
   match-sorter: 6.3.1
-  mongoose: 6.9.1
+  mongoose: 6.9.2
   ts-jest: 29.0.5
   typescript: 4.9.5
   utf-8-validate: 5.0.10
@@ -28,13 +28,13 @@ specifiers:
 
 dependencies:
   '@sapphire/type': 2.3.0
-  '@typegoose/typegoose': 10.1.1_mongoose@6.9.1
+  '@typegoose/typegoose': 10.1.1_mongoose@6.9.2
   dedent: 0.7.0
   discord.js: 14.7.1_3cxu5zja4e2r5wmvge7mdcljwq
   dotenv: 16.0.3
   friendly-words: 1.2.0
   match-sorter: 6.3.1
-  mongoose: 6.9.1
+  mongoose: 6.9.2
   winston: 3.8.2
   winston-daily-rotate-file: 4.7.1_winston@3.8.2
 
@@ -51,7 +51,7 @@ devDependencies:
   '@types/jest': 29.4.0
   '@types/node': 18.13.0
   eslint: 8.34.0
-  eslint-config-promise: github.com/promise/eslint-config/374e2c8bc9f1cee75219c909881c26d273f36941_2bepdrichzi2p7to35qb73hy6e
+  eslint-config-promise: github.com/promise/eslint-config/8e00970f6c563e7dae718b912faea526d45532f8_2bepdrichzi2p7to35qb73hy6e
   jest: 29.4.3_@types+node@18.13.0
   ts-jest: 29.0.5_cslgewaznsjxirw6ogkiwclmbu
   typescript: 4.9.5
@@ -1693,7 +1693,7 @@ packages:
     resolution: {integrity: sha512-bOuNKwO4Fzbt+Su5wqI9zNHwx5C25gLnutwVQA1sBZk0cW8UjVPVcwzIUhJIIJDUx7zDEbAwdCD2HfvIsV8dYg==}
     dev: true
 
-  /@typegoose/typegoose/10.1.1_mongoose@6.9.1:
+  /@typegoose/typegoose/10.1.1_mongoose@6.9.2:
     resolution: {integrity: sha512-QzRzgFnsQ3/UTToUEVJ5ln4t/QzlznEat7bcn9tNt4U6QCytPVvTJnRe5SwrJllxakgz0yrnbKkTw9YeoiYXuQ==}
     engines: {node: '>=14.17.0'}
     peerDependencies:
@@ -1701,7 +1701,7 @@ packages:
     dependencies:
       lodash: 4.17.21
       loglevel: 1.8.1
-      mongoose: 6.9.1
+      mongoose: 6.9.2
       reflect-metadata: 0.1.13
       semver: 7.3.8
       tslib: 2.5.0
@@ -4309,8 +4309,8 @@ packages:
       - aws-crt
     dev: false
 
-  /mongoose/6.9.1:
-    resolution: {integrity: sha512-hOz1ZWV0w6WEVLrj89Wpk7PXDYtDDF6k7/NX79lY5iKqeFtZsceBXW8xW59YFNcW5O3cH32hQ8IbDlhgyBsDMA==}
+  /mongoose/6.9.2:
+    resolution: {integrity: sha512-Yb9rWJhYm+7Yf839QuKx2dXcclbA0GAMxtdDiaedHsOQU+y28cD/8gKYp1wTwwyAjKesqaGfLG4ez7D9lKpwBw==}
     engines: {node: '>=12.0.0'}
     dependencies:
       bson: 4.7.2
@@ -5473,9 +5473,9 @@ packages:
     dev: false
     optional: true
 
-  github.com/promise/eslint-config/374e2c8bc9f1cee75219c909881c26d273f36941_2bepdrichzi2p7to35qb73hy6e:
-    resolution: {tarball: https://codeload.github.com/promise/eslint-config/tar.gz/374e2c8bc9f1cee75219c909881c26d273f36941}
-    id: github.com/promise/eslint-config/374e2c8bc9f1cee75219c909881c26d273f36941
+  github.com/promise/eslint-config/8e00970f6c563e7dae718b912faea526d45532f8_2bepdrichzi2p7to35qb73hy6e:
+    resolution: {tarball: https://codeload.github.com/promise/eslint-config/tar.gz/8e00970f6c563e7dae718b912faea526d45532f8}
+    id: github.com/promise/eslint-config/8e00970f6c563e7dae718b912faea526d45532f8
     name: eslint-config-promise
     version: 0.0.0
     peerDependencies:

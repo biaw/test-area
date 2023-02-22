@@ -1,4 +1,4 @@
-FROM node:18-alpine@sha256:045b1a1c90bdfd8fcaad0769922aa16c401e31867d8bf5833365b0874884bbae AS base
+FROM node:18-alpine@sha256:e0a779479fca9cf43cae2852291bee70e730ae3ad27fea1211060bd344b696b8 AS base
 RUN apk --no-cache add g++ gcc make python3
 
 WORKDIR /app

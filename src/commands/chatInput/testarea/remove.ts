@@ -16,14 +16,14 @@ export default {
       description: "The ID of the server to remove",
       required: true,
       autocomplete: (async (query, interaction) => {
-        const testAreas = await TestArea.find({ ...config.ownerId !== interaction.user.id && { ownerId: interaction.user.id }});
+        const testAreas = await TestArea.find({ ...config.ownerId !== interaction.user.id && { ownerId: interaction.user.id } });
         return matchSorter(testAreas.map(testArea => {
           const guild = workers.get(testArea.botId)?.guilds.cache.get(testArea.serverId);
           return {
             name: guild ? `${guild.name} (${testArea.serverId})` : `unknown server ${testArea.serverId}`,
             value: testArea.serverId,
           };
-        }), query, { keys: ["value", "name"]});
+        }), query, { keys: ["value", "name"] });
         // todo fix type
       }) as Autocomplete<string>,
     },

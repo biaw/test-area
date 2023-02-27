@@ -14,7 +14,7 @@ export default function getAllApplicationCommands(commandType?: "non-test-areas"
         description: command.description,
         type: ApplicationCommandType.ChatInput,
         ...chatInputIsExecutable(command) ?
-          { ...command.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(command.options) }} :
+          { ...command.options && { options: convertChatInputCommandOptionsToApplicationCommandOptions(command.options) } } :
           {
             options: command.subcommands.map(subcommand => ({
               name: subcommand.name,

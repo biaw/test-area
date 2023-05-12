@@ -2,8 +2,8 @@ lockfileVersion: '6.0'
 
 dependencies:
   '@sapphire/type':
-    specifier: 2.3.0
-    version: 2.3.0
+    specifier: 2.4.0
+    version: 2.4.0
   '@typegoose/typegoose':
     specifier: 10.2.0
     version: 10.2.0(mongoose@6.10.0)
@@ -1684,8 +1684,8 @@ packages:
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
     dev: false
 
-  /@sapphire/type@2.3.0:
-    resolution: {integrity: sha512-glX5FSVX1SWYAOjTwwktKej6riyOsf788FKLFo0CUVMp2xGNQfDPlb1n5enWseFtArPr9O862I5SyVRrRgvh6g==}
+  /@sapphire/type@2.4.0:
+    resolution: {integrity: sha512-oEyNiNr2zfStol5yLAjsLC4nYW0jP0wrOmQFQVl7SX/gumskoTy0hKGtKAWUwSMmc9N5pdlw3QbFNDzIkKYRvg==}
     engines: {node: '>=v12', npm: '>=7'}
     requiresBuild: true
     dependencies:

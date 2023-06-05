@@ -50,7 +50,6 @@ const client = new Client({
   ],
   presence: { status: "online" },
   rest: { userAgentAppendix: "Test Area (https://github.com/biaw/test-area)" },
-  ws: { compress: true },
 });
 
 // init client

@@ -60,7 +60,6 @@ async function initWorkers(): Promise<void> {
       ],
       presence: { status: "online" },
       rest: { userAgentAppendix: "Test Area Worker (https://github.com/biaw/test-area)" },
-      ws: { compress: true },
     });
 
     const workerId = Buffer.from(token.split(".")[0]!, "base64").toString("ascii");

@@ -38,7 +38,7 @@
     "friendly-words": "1.2.0",
     "match-sorter": "6.3.1",
     "mongoose": "6.10.0",
-    "winston": "3.8.2",
+    "winston": "3.9.0",
     "winston-daily-rotate-file": "4.7.1"
   },
   "devDependencies": {

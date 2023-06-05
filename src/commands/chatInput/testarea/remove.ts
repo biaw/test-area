@@ -36,7 +36,7 @@ export default {
     if (testArea.ownerId !== interaction.user.id && config.ownerId !== interaction.user.id) return void interaction.reply({ content: "❌ You do not own this test area.", ephemeral: true });
 
     await workers.get(testArea.botId)?.guilds.cache.get(testArea.serverId)?.delete();
-    await testArea.remove();
+    await testArea.deleteOne();
 
     if (interaction.guildId !== serverId) void interaction.reply({ content: "✅ Test area removed.", ephemeral: true });
     return void 0;

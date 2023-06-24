@@ -31,13 +31,13 @@
   },
   "dependencies": {
     "@sapphire/type": "2.4.0",
-    "@typegoose/typegoose": "11.2.0",
+    "@typegoose/typegoose": "11.3.0",
     "dedent": "0.7.0",
     "discord.js": "14.11.0",
     "dotenv": "16.1.4",
     "friendly-words": "1.2.2",
     "match-sorter": "6.3.1",
-    "mongoose": "7.2.4",
+    "mongoose": "7.3.1",
     "winston": "3.9.0",
     "winston-daily-rotate-file": "4.7.1"
   },

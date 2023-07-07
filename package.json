@@ -56,7 +56,7 @@
   "optionalDependencies": {
     "bufferutil": "4.0.7",
     "erlpack": "github:discord/erlpack",
-    "utf-8-validate": "5.0.10",
+    "utf-8-validate": "6.0.3",
     "zlib-sync": "0.1.8"
   },
   "eslintConfig": {

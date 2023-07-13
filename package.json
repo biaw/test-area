@@ -42,7 +42,8 @@
     "winston-daily-rotate-file": "4.7.1"
   },
   "devDependencies": {
-    "@tsconfig/node18-strictest": "1.0.0",
+    "@tsconfig/node18": "18.2.0",
+    "@tsconfig/strictest": "2.0.1",
     "@types/dedent": "0.7.0",
     "@types/friendly-words": "1.2.0",
     "@types/jest": "29.5.3",
@@ -51,7 +52,7 @@
     "eslint-config-promise": "github:promise/eslint-config",
     "jest": "29.6.1",
     "ts-jest": "29.1.1",
-    "typescript": "4.9.5"
+    "typescript": "5.1.6"
   },
   "optionalDependencies": {
     "bufferutil": "4.0.7",

@@ -51,9 +51,12 @@ optionalDependencies:
     version: 0.1.8
 
 devDependencies:
-  '@tsconfig/node18-strictest':
-    specifier: 1.0.0
-    version: 1.0.0
+  '@tsconfig/node18':
+    specifier: 18.2.0
+    version: 18.2.0
+  '@tsconfig/strictest':
+    specifier: 2.0.1
+    version: 2.0.1
   '@types/dedent':
     specifier: 0.7.0
     version: 0.7.0
@@ -932,9 +935,12 @@ packages:
     resolution: {integrity: sha512-OvjF+z51L3ov0OyAU0duzsYuvO01PH7x4t6DJx+guahgTnBHkhJdG7soQeTSFLWN3efnHyibZ4Z8l2EuWwJN3A==}
     dev: false
 
-  /@tsconfig/node18-strictest@1.0.0:
-    resolution: {integrity: sha512-bOuNKwO4Fzbt+Su5wqI9zNHwx5C25gLnutwVQA1sBZk0cW8UjVPVcwzIUhJIIJDUx7zDEbAwdCD2HfvIsV8dYg==}
-    deprecated: TypeScript 5.0 supports combining TSConfigs using array syntax in extends
+  /@tsconfig/node18@18.2.0:
+    resolution: {integrity: sha512-yhxwIlFVSVcMym3O31HoMnRXpoenmpIxcj4Yoes2DUpe+xCJnA7ECQP1Vw889V0jTt/2nzvpLQ/UuMYCd3JPIg==}
+    dev: true
+
+  /@tsconfig/strictest@2.0.1:
+    resolution: {integrity: sha512-7JHHCbyCsGUxLd0pDbp24yz3zjxw2t673W5oAP6HCEdr/UUhaRhYd3SSnUsGCk+VnPVJVA4mXROzbhI+nyIk+w==}
     dev: true
 
   /@typegoose/typegoose@11.3.0(mongoose@7.3.4):

@@ -44,7 +44,6 @@
   "devDependencies": {
     "@tsconfig/node18": "18.2.0",
     "@tsconfig/strictest": "2.0.1",
-    "@types/dedent": "0.7.0",
     "@types/friendly-words": "1.2.0",
     "@types/jest": "29.5.3",
     "@types/node": "18.16.19",

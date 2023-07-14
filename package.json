@@ -32,7 +32,7 @@
   "dependencies": {
     "@sapphire/type": "2.4.0",
     "@typegoose/typegoose": "11.3.0",
-    "dedent": "1.0.1",
+    "dedent": "1.0.2",
     "discord.js": "14.11.0",
     "dotenv": "16.3.1",
     "friendly-words": "1.2.3",

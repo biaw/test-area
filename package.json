@@ -37,7 +37,7 @@
     "dotenv": "16.3.1",
     "friendly-words": "1.2.3",
     "match-sorter": "6.3.1",
-    "mongoose": "7.4.0",
+    "mongoose": "7.4.1",
     "winston": "3.10.0",
     "winston-daily-rotate-file": "4.7.1"
   },

@@ -1,4 +1,4 @@
-[![Docker test](https://img.shields.io/github/actions/workflow/status/biaw/test-area/docker-test.yml?branch=main)](https://github.com/biaw/test-area/actions/workflows/docker-test.yml)
+[![Docker test](https://img.shields.io/github/actions/workflow/status/biaw/test-area/docker-compose-test.yml?branch=main)](https://github.com/biaw/test-area/actions/workflows/docker-compose-test.yml)
 [![Linting](https://img.shields.io/github/actions/workflow/status/biaw/test-area/linting.yml?branch=main&label=quality)](https://github.com/biaw/test-area/actions/workflows/linting.yml)
 [![Testing](https://img.shields.io/github/actions/workflow/status/biaw/test-area/testing.yml?branch=main&label=test)](https://github.com/biaw/test-area/actions/workflows/testing.yml)
 [![DeepScan grade](https://deepscan.io/api/teams/16173/projects/19537/branches/707763/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=16173&pid=19537&bid=707763)

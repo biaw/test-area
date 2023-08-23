@@ -47,7 +47,7 @@
     "@types/friendly-words": "1.2.0",
     "@types/jest": "29.5.4",
     "@types/node": "18.17.8",
-    "eslint": "8.46.0",
+    "eslint": "8.47.0",
     "eslint-config-promise": "github:promise/eslint-config",
     "jest": "29.6.3",
     "ts-jest": "29.1.1",

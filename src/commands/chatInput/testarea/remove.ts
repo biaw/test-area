@@ -3,7 +3,6 @@ import { matchSorter } from "match-sorter";
 import type{ SecondLevelChatInputCommand } from "..";
 import config from "../../../config";
 import { TestArea } from "../../../database/models/TestArea";
-import type{ Autocomplete } from "../../../handlers/interactions/autocompletes";
 import { workers } from "../../../handlers/workers";
 
 export default {
@@ -15,7 +14,7 @@ export default {
       name: "server_id",
       description: "The ID of the server to remove",
       required: true,
-      autocomplete: (async (query, interaction) => {
+      autocomplete: async (query, interaction) => {
         const testAreas = await TestArea.find({ ...config.ownerId !== interaction.user.id && { ownerId: interaction.user.id } });
         return matchSorter(testAreas.map(testArea => {
           const guild = workers.get(testArea.botId)?.guilds.cache.get(testArea.serverId);
@@ -24,8 +23,7 @@ export default {
             value: testArea.serverId,
           };
         }), query, { keys: ["value", "name"] });
-        // todo fix type
-      }) as Autocomplete<string>,
+      },
     },
   ],
   async execute(interaction) {

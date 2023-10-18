@@ -58,8 +58,8 @@ devDependencies:
     specifier: 2.0.2
     version: 2.0.2
   '@types/friendly-words':
-    specifier: 1.2.0
-    version: 1.2.0
+    specifier: 1.2.1
+    version: 1.2.1
   '@types/jest':
     specifier: 29.5.5
     version: 29.5.5
@@ -973,8 +973,8 @@ packages:
       '@babel/types': 7.22.11
     dev: true
 
-  /@types/friendly-words@1.2.0:
-    resolution: {integrity: sha512-ASRy4Dz6NbCCrCfTyh6WSb6GRZlmZaKALVvQv63U5Py0G52ZeXTVM+pqYZHu2Idpx8nDY5mE4u6chHvHj+iE6Q==}
+  /@types/friendly-words@1.2.1:
+    resolution: {integrity: sha512-IH0fvG9Vi+PtsHl+4KXgROQP96LRL1PDtgIncQNc4vjmdj+odbQ51tt7O3drOzG3GPkeCZswJ3MUBykggmrUog==}
     dev: true
 
   /@types/graceful-fs@4.1.6:

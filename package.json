@@ -57,7 +57,7 @@
     "bufferutil": "4.0.8",
     "erlpack": "github:discord/erlpack",
     "utf-8-validate": "6.0.3",
-    "zlib-sync": "0.1.8"
+    "zlib-sync": "0.1.9"
   },
   "eslintConfig": {
     "extends": "promise"

@@ -21,8 +21,8 @@ dependencies:
     specifier: 16.3.1
     version: 16.3.1
   friendly-words:
-    specifier: 1.2.3
-    version: 1.2.3
+    specifier: 1.2.4
+    version: 1.2.4
   match-sorter:
     specifier: 6.3.1
     version: 6.3.1
@@ -2790,8 +2790,8 @@ packages:
     engines: {node: '>= 0.6'}
     dev: false
 
-  /friendly-words@1.2.3:
-    resolution: {integrity: sha512-OLq37Owgx6ILWCj7TpimGj7RmjGj4kHI0yXNxUXSIonFonZjrKAg91QKLjqmCGhTzfo+eWa+pU/GpjdYT2E/lg==}
+  /friendly-words@1.2.4:
+    resolution: {integrity: sha512-BEdnynpt35vNoEWGRFFXrkT/oF6tbmfVn6Tq0la5N1w6j2N5K2NK4uC1Xh+0oTWx3w3ajNWcxKnCn6DG3O9UoA==}
     dependencies:
       ava: 5.3.1
       express: 4.18.2

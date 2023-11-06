@@ -35,7 +35,7 @@
     "dedent": "1.5.1",
     "discord.js": "14.13.0",
     "dotenv": "16.3.1",
-    "friendly-words": "1.2.3",
+    "friendly-words": "1.2.4",
     "match-sorter": "6.3.1",
     "mongoose": "7.5.4",
     "winston": "3.10.0",

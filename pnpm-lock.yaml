@@ -71,7 +71,7 @@ devDependencies:
     version: 8.56.0
   eslint-config-promise:
     specifier: github:promise/eslint-config
-    version: github.com/promise/eslint-config/0c09a572d4872b5b5ae33885a18262577509e396(@stylistic/eslint-plugin-js@1.5.4)(@stylistic/eslint-plugin-jsx@1.5.4)(@stylistic/eslint-plugin-ts@1.5.4)(@typescript-eslint/eslint-plugin@6.20.0)(@typescript-eslint/parser@6.20.0)(eslint-plugin-i@2.29.1)(eslint-plugin-jest@27.6.3)(eslint-plugin-react@7.33.2)(eslint-plugin-tailwindcss@3.14.1)(eslint@8.56.0)
+    version: github.com/promise/eslint-config/af529e2e87db51d0f7cd35685e9ce4254fdd5f02(@stylistic/eslint-plugin-js@1.5.4)(@stylistic/eslint-plugin-jsx@1.5.4)(@stylistic/eslint-plugin-ts@1.5.4)(@typescript-eslint/eslint-plugin@6.20.0)(@typescript-eslint/parser@6.20.0)(eslint-plugin-i@2.29.1)(eslint-plugin-jest@27.6.3)(eslint-plugin-react@7.33.2)(eslint-plugin-tailwindcss@3.14.1)(eslint@8.56.0)
   jest:
     specifier: 29.7.0
     version: 29.7.0(@types/node@18.19.12)
@@ -560,7 +560,7 @@ packages:
       debug: 4.3.4
       espree: 9.6.1
       globals: 13.24.0
-      ignore: 5.3.0
+      ignore: 5.3.1
       import-fresh: 3.3.0
       js-yaml: 4.1.0
       minimatch: 3.1.2
@@ -1139,7 +1139,7 @@ packages:
       debug: 4.3.4
       eslint: 8.56.0
       graphemer: 1.4.0
-      ignore: 5.3.0
+      ignore: 5.3.1
       natural-compare: 1.4.0
       semver: 7.5.4
       ts-api-utils: 1.0.3(typescript@5.3.3)
@@ -2566,7 +2566,7 @@ packages:
       glob-parent: 6.0.2
       globals: 13.24.0
       graphemer: 1.4.0
-      ignore: 5.3.0
+      ignore: 5.3.1
       imurmurhash: 0.1.4
       is-glob: 4.0.3
       is-path-inside: 3.0.3
@@ -3015,7 +3015,7 @@ packages:
       array-union: 2.1.0
       dir-glob: 3.0.1
       fast-glob: 3.3.2
-      ignore: 5.3.0
+      ignore: 5.3.1
       merge2: 1.4.1
       slash: 3.0.0
     dev: true
@@ -3026,7 +3026,7 @@ packages:
     dependencies:
       dir-glob: 3.0.1
       fast-glob: 3.3.2
-      ignore: 5.3.0
+      ignore: 5.3.1
       merge2: 1.4.1
       slash: 4.0.0
     dev: false
@@ -3130,8 +3130,8 @@ packages:
     engines: {node: '>=10 <11 || >=12 <13 || >=14'}
     dev: false
 
-  /ignore@5.3.0:
-    resolution: {integrity: sha512-g7dmpshy+gD7mh88OC9NwSGTKoc3kyLAZQRU1mt53Aw/vnvfXnbC+F/7F7QoYVKbV+KNvJx8wArewKy1vXMtlg==}
+  /ignore@5.3.1:
+    resolution: {integrity: sha512-5Fytz/IraMjqpwfd34ke28PTVMjZjJG2MPn5t7OE4eUCUNf8BAa7b5WUS9/Qvr6mwOQS7Mk6vdsMno5he+T8Xw==}
     engines: {node: '>= 4'}
 
   /import-fresh@3.3.0:
@@ -5921,9 +5921,9 @@ packages:
     dev: false
     optional: true
 
-  github.com/promise/eslint-config/0c09a572d4872b5b5ae33885a18262577509e396(@stylistic/eslint-plugin-js@1.5.4)(@stylistic/eslint-plugin-jsx@1.5.4)(@stylistic/eslint-plugin-ts@1.5.4)(@typescript-eslint/eslint-plugin@6.20.0)(@typescript-eslint/parser@6.20.0)(eslint-plugin-i@2.29.1)(eslint-plugin-jest@27.6.3)(eslint-plugin-react@7.33.2)(eslint-plugin-tailwindcss@3.14.1)(eslint@8.56.0):
-    resolution: {tarball: https://codeload.github.com/promise/eslint-config/tar.gz/0c09a572d4872b5b5ae33885a18262577509e396}
-    id: github.com/promise/eslint-config/0c09a572d4872b5b5ae33885a18262577509e396
+  github.com/promise/eslint-config/af529e2e87db51d0f7cd35685e9ce4254fdd5f02(@stylistic/eslint-plugin-js@1.5.4)(@stylistic/eslint-plugin-jsx@1.5.4)(@stylistic/eslint-plugin-ts@1.5.4)(@typescript-eslint/eslint-plugin@6.20.0)(@typescript-eslint/parser@6.20.0)(eslint-plugin-i@2.29.1)(eslint-plugin-jest@27.6.3)(eslint-plugin-react@7.33.2)(eslint-plugin-tailwindcss@3.14.1)(eslint@8.56.0):
+    resolution: {tarball: https://codeload.github.com/promise/eslint-config/tar.gz/af529e2e87db51d0f7cd35685e9ce4254fdd5f02}
+    id: github.com/promise/eslint-config/af529e2e87db51d0f7cd35685e9ce4254fdd5f02
     name: eslint-config-promise
     version: 0.0.0
     peerDependencies:

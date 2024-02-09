@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@tsconfig/node18": "18.2.2",
-    "@tsconfig/strictest": "2.0.2",
+    "@tsconfig/strictest": "2.0.3",
     "@types/friendly-words": "1.2.2",
     "@types/jest": "29.5.12",
     "@types/node": "18.19.15",

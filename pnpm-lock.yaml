@@ -18,8 +18,8 @@ dependencies:
     specifier: 14.14.1
     version: 14.14.1(bufferutil@4.0.8)(utf-8-validate@6.0.3)
   dotenv:
-    specifier: 16.3.2
-    version: 16.3.2
+    specifier: 16.4.4
+    version: 16.4.4
   friendly-words:
     specifier: 1.2.4
     version: 1.2.4
@@ -2234,8 +2234,8 @@ packages:
       esutils: 2.0.3
     dev: true
 
-  /dotenv@16.3.2:
-    resolution: {integrity: sha512-HTlk5nmhkm8F6JcdXvHIzaorzCoziNQT9mGxLPVXW8wJF1TiGSL60ZGB4gHWabHOaMmWmhvk2/lPHfnBiT78AQ==}
+  /dotenv@16.4.4:
+    resolution: {integrity: sha512-XvPXc8XAQThSjAbY6cQ/9PcBXmFoWuw1sQ3b8HqUCR6ziGXjkTi//kB9SWa2UwqlgdAIuRqAa/9hVljzPehbYg==}
     engines: {node: '>=12'}
     dev: false
 

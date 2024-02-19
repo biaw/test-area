@@ -39,7 +39,7 @@
     "match-sorter": "6.3.4",
     "mongoose": "8.0.4",
     "winston": "3.11.0",
-    "winston-daily-rotate-file": "4.7.1"
+    "winston-daily-rotate-file": "5.0.0"
   },
   "devDependencies": {
     "@tsconfig/node18": "18.2.2",

@@ -13,8 +13,8 @@ export default function handleInteractions(client: Client<true>, workerName?: st
     if (interaction.isModalSubmit()) return modalHandler(interaction);
     if (interaction.isMessageComponent()) return componentHandler(interaction);
     if (interaction.isChatInputCommand()) return chatInputCommandHandler(interaction);
-    if (interaction.isContextMenuCommand()) return menuCommandHandler(interaction);
-    if (interaction.isAutocomplete()) return autocompleteHandler(interaction);
+    if (interaction.isContextMenuCommand()) return void menuCommandHandler(interaction);
+    if (interaction.isAutocomplete()) return void autocompleteHandler(interaction);
   });
 
   mainLogger.info(`Interaction command listener registered.${workerName ? ` (${workerName})` : ""}`);

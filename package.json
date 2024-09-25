@@ -46,7 +46,7 @@
     "@tsconfig/strictest": "2.0.5",
     "@types/friendly-words": "1.2.2",
     "@types/jest": "29.5.13",
-    "@types/node": "18.19.51",
+    "@types/node": "18.19.52",
     "eslint": "8.57.1",
     "eslint-config-promise": "github:promise/eslint-config",
     "jest": "29.7.0",

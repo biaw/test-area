@@ -32,6 +32,7 @@
   "dependencies": {
     "@sapphire/type": "2.5.1",
     "@typegoose/typegoose": "12.9.1",
+    "bufferutil": "4.0.8",
     "dedent": "1.5.3",
     "discord.js": "14.16.3",
     "dotenv": "16.4.7",
@@ -39,28 +40,20 @@
     "match-sorter": "8.0.0",
     "mongoose": "8.8.4",
     "winston": "3.17.0",
-    "winston-daily-rotate-file": "5.0.0"
+    "winston-daily-rotate-file": "5.0.0",
+    "zlib-sync": "0.1.9"
   },
   "devDependencies": {
-    "@tsconfig/node18": "18.2.4",
+    "@tsconfig/node22": "22.0.0",
     "@tsconfig/strictest": "2.0.5",
     "@types/friendly-words": "1.2.2",
     "@types/jest": "29.5.14",
-    "@types/node": "18.19.67",
-    "eslint": "8.57.1",
+    "@types/node": "22.10.1",
+    "eslint": "9.16.0",
     "eslint-config-promise": "github:promise/eslint-config",
     "jest": "29.7.0",
     "ts-jest": "29.2.5",
     "typescript": "5.7.2"
-  },
-  "optionalDependencies": {
-    "bufferutil": "4.0.8",
-    "erlpack": "github:discord/erlpack",
-    "utf-8-validate": "6.0.5",
-    "zlib-sync": "0.1.9"
-  },
-  "eslintConfig": {
-    "extends": "promise"
   },
   "jest": {
     "preset": "ts-jest",
@@ -69,5 +62,6 @@
       "<rootDir>/build/",
       "<rootDir>/node_modules/"
     ]
-  }
+  },
+  "packageManager": "pnpm@9.15.0"
 }

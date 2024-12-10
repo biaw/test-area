@@ -1,6 +1,6 @@
-import { inspect } from "util";
 import type{ Caches } from "discord.js";
 import { Client, IntentsBitField, Options, Partials } from "discord.js";
+import { inspect } from "util";
 import config from "./config";
 import connection from "./database";
 import handleInteractions from "./handlers/interactions";

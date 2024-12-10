@@ -1,8 +1,8 @@
 import { ButtonStyle, ComponentType } from "discord.js";
+import type{ FirstLevelChatInputCommand } from ".";
 import config from "../../config";
 import { TestArea } from "../../database/models/TestArea";
 import { buttonComponents } from "../../handlers/interactions/components";
-import type{ FirstLevelChatInputCommand } from ".";
 
 export default {
   name: "self_destruct",

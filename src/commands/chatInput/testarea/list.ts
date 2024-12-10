@@ -1,5 +1,5 @@
 import type{ APIEmbed, GuildMember, Interaction, InteractionReplyOptions, InteractionUpdateOptions } from "discord.js";
-import { ButtonStyle, Colors, ComponentType, TimestampStyles, time } from "discord.js";
+import { ButtonStyle, Colors, ComponentType, time, TimestampStyles } from "discord.js";
 import type{ SecondLevelChatInputCommand } from "..";
 import { TestArea } from "../../../database/models/TestArea";
 import { buttonComponents, selectMenuComponents } from "../../../handlers/interactions/components";
@@ -32,6 +32,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
         case Filter.stale6m: return testArea.lastActivityAt.getTime() < Date.now() - 15552000000;
         case Filter.ownerIsMe: return testArea.ownerId === interaction.user.id;
         case Filter.ownerIsNotMe: return testArea.ownerId !== interaction.user.id;
+        case Filter.none:
         default: return true;
       }
     })
@@ -46,6 +47,7 @@ async function generateMessage(interaction: Interaction, filter: Filter = Filter
         case Sort.nameZA: return bGuild?.name.localeCompare(aGuild?.name ?? "") ?? 0;
         case Sort.ownerAZ: return aOwner?.username.localeCompare(bOwner?.username ?? "") ?? 0;
         case Sort.ownerZA: return bOwner?.username.localeCompare(aOwner?.username ?? "") ?? 0;
+        case Sort.none:
         default: return 0;
       }
     });

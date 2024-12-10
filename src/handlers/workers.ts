@@ -1,7 +1,7 @@
-import { inspect } from "util";
 import type{ Caches, Guild, GuildMember, Snowflake } from "discord.js";
 import { Client, IntentsBitField, Options, Partials } from "discord.js";
 import { objects, predicates } from "friendly-words";
+import { inspect } from "util";
 import config from "../config";
 import { TestArea } from "../database/models/TestArea";
 import { workerLogger } from "../utils/logger/discord";

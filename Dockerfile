@@ -1,4 +1,4 @@
-FROM node:18-alpine@sha256:a51dcf24295728271111301f628d877a899c6f9b26af7b9cf4f9fe13ef948dc8 AS base
+FROM node:22-alpine AS base
 RUN apk --no-cache add g++ gcc make python3
 
 WORKDIR /app
@@ -8,11 +8,11 @@ ENV IS_DOCKER=true
 # install prod dependencies
 
 FROM base AS deps
-RUN npm install -g pnpm@8
 
 COPY package.json ./
-COPY pnpm-lock.yaml ./
+RUN corepack enable pnpm
 
+COPY pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile --prod
 
 

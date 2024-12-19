@@ -1,10 +1,10 @@
-import type{ ApplicationCommandOptionChoiceData, AutocompleteInteraction, Awaitable } from "discord.js";
+import type { ApplicationCommandOptionChoiceData, AutocompleteInteraction, Awaitable } from "discord.js";
 import type{ ChatInputCommand } from "../../commands/chatInput";
 import { allChatInputCommands } from "../../commands/chatInput";
 
-export type Autocomplete<QueryType extends number | string> = (query: QueryType, interaction: AutocompleteInteraction<"cached">) => Awaitable<Array<ApplicationCommandOptionChoiceData<QueryType>>>;
+export type Autocomplete<QueryType extends number | string> = (query: QueryType, interaction: AutocompleteInteraction) => Awaitable<Array<ApplicationCommandOptionChoiceData<QueryType>>>;
 
-export default async function autocompleteHandler(interaction: AutocompleteInteraction<"cached">): Promise<void> {
+export default async function autocompleteHandler(interaction: AutocompleteInteraction): Promise<void> {
   const hierarchy = [interaction.commandName, interaction.options.getSubcommandGroup(false), interaction.options.getSubcommand(false)] as const;
   const firstLevelCommand = allChatInputCommands.find(({ name }) => name === hierarchy[0]) ?? null;
 

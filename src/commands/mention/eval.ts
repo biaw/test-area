@@ -36,12 +36,12 @@ export default {
             void (await message).edit(generateFinalResponse(err, ms, false));
           });
       }
-      return reply(generateFinalResponse(evaluated));
+      return void reply(generateFinalResponse(evaluated));
     } catch (err) {
-      return reply(generateFinalResponse(err, -1, false));
+      return void reply(generateFinalResponse(err, -1, false));
     }
   },
-} as MentionCommand;
+} satisfies MentionCommand;
 
 function generateFinalResponse(result: unknown, ms = -1, success = true, fileUpload = false): MessageEditOptions & MessageReplyOptions {
   const identifier = randomBytes(16).toString("hex");

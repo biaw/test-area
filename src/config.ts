@@ -1,17 +1,31 @@
-import { config } from "dotenv";
+import { Colors } from "discord.js";
+import "dotenv/config";
 
-config();
+// test environment
+if (
+  !process.env["CLIENT_TOKEN"] ||
+  !process.env["WORKER_TOKENS"] ||
+  !process.env["DATABASE_URI"] ||
+  !process.env["OWNER_ID"]
+) throw new Error("Missing environment variables, please check the README for more information on how you can set your environment variables..");
 
-export default {
-  client: {
-    id: String(process.env["CLIENT_ID"]),
-    token: String(process.env["CLIENT_TOKEN"]),
-  },
-  workerTokens: String(process.env["WORKER_TOKENS"]).split(","),
+// export config
+const config = {
+  clientToken: process.env["CLIENT_TOKEN"],
+  workerTokens: process.env["WORKER_TOKENS"]
+    .split(",")
+    .map(token => token.trim())
+    .filter(Boolean),
+  ownerId: process.env["OWNER_ID"],
 
-  databaseUri: String(process.env["DATABASE_URI"]),
+  databaseUri: process.env["DATABASE_URI"],
 
-  ownerId: String(process.env["OWNER_ID"]),
-
-  themeColor: parseInt(process.env["THEME_COLOR"] ?? "0", 16) || 0x5865F2,
+  themeColor: parseInt(process.env["THEME_COLOR"] ?? "0", 16) || Colors.Blurple,
+  limitAmountOfAreasPerUser: parseInt(process.env["AREA_LIMIT_PER_USER"] ?? "10", 10),
+  noGeneratedNames: process.env["DISABLE_FUNNY_WORKER_NAMES"] === "true",
 } as const;
+
+if (config.workerTokens.includes(config.clientToken)) throw new Error("You need to supply a separate bot token to be a worker, they cannot work alongside each other.");
+if (!config.workerTokens.length) throw new Error("You need to supply at least one worker token. If you want more than one worker then you can separate the tokens with a comma.");
+
+export default config;

@@ -7,16 +7,16 @@ import { buttonComponents } from "../../handlers/interactions/components";
 export default {
   name: "self_destruct",
   description: "Delete the server",
-  worksIn: ["test-areas"],
+  applicableTo: ["workers"],
   async execute(interaction) {
-    const testArea = await TestArea.findOne({ serverId: interaction.guildId });
+    const testArea = await TestArea.findOne({ guildId: interaction.guildId });
     if (interaction.user.id !== testArea?.ownerId && interaction.user.id !== config.ownerId) return interaction.reply({ content: "❌ You are not the owner of this test area.", ephemeral: true });
 
     buttonComponents.set(`${interaction.id}:confirm`, {
       allowedUsers: [interaction.user.id],
       async callback(button) {
         await button.deferUpdate();
-        void button.guild.delete();
+        await testArea?.discordGuild?.delete();
       },
     });
 

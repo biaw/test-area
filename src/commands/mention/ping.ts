@@ -6,8 +6,12 @@ export default {
   worksIn: ["test-areas", "non-test-areas"],
   testArgs(args) { return args.length === 0; },
   async execute(message, reply) {
-    const now = Date.now();
-    const botMessage = await reply("〽️ Pinging...");
-    return void botMessage.edit(`🏓 Server latency is \`${Date.now() - now}ms\`, shard latency is \`${Math.ceil(message.guild.shard.ping)}ms\` and my uptime is \`${msToHumanShortTime(message.client.uptime)}\`.`);
+    const start = Date.now();
+    const [[botMessage, messageLatency], gatewayLatency] = await Promise.all([
+      reply("〽️ Pinging...").then(newMessage => [newMessage, Date.now() - start] as const),
+      message.client.rest.get("/gateway").then(() => Date.now() - start),
+    ]);
+
+    return void botMessage.edit(`🏓 Message latency is \`${messageLatency}ms\`, gateway latency is \`${gatewayLatency}ms\` and my uptime is \`${msToHumanShortTime(message.client.uptime)}\`.`);
   },
-} as MentionCommand;
+} satisfies MentionCommand;

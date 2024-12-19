@@ -1,22 +1,21 @@
-version: '3'
-
 services:
   bot:
     build: .
     restart: always
     environment:
-      - CLIENT_ID=$CLIENT_ID
       - CLIENT_TOKEN=$CLIENT_TOKEN
       - WORKER_TOKENS=$WORKER_TOKENS
       - DATABASE_URI=mongodb://db
       - OWNER_ID=$OWNER_ID
       - THEME_COLOR=$THEME_COLOR
+      - AREA_LIMIT_PER_USER=$AREA_LIMIT_PER_USER
+      - DISABLE_FUNNY_WORKER_NAMES=$DISABLE_FUNNY_WORKER_NAMES
     volumes:
       - ./logs:/app/logs
     depends_on:
       - db
   db:
-    image: mongo:4@sha256:52c42cbab240b3c5b1748582cc13ef46d521ddacae002bbbda645cebed270ec0
+    image: mongo:8
     restart: always
     volumes:
       - ./database:/data/db

@@ -35,7 +35,7 @@ jobs:
       run: |
         echo "CLIENT_TOKEN=hawk" > .env
         echo "WORKER_TOKENS=tuah" >> .env
-        echo "DATABSE_URI=mock" >> .env
+        echo "DATABASE_URI=mock" >> .env
         echo "OWNER_ID=mock" >> .env
 
     - name: Run Jest

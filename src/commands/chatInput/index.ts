@@ -1,20 +1,14 @@
-import type{ ApplicationCommandAutocompleteNumericOptionData, ApplicationCommandAutocompleteStringOptionData, ApplicationCommandBooleanOptionData, ApplicationCommandChannelOptionData, ApplicationCommandMentionableOptionData, ApplicationCommandNonOptionsData, ApplicationCommandNumericOptionData, ApplicationCommandRoleOptionData, ApplicationCommandStringOptionData, ApplicationCommandUserOptionData, Awaitable, ChatInputCommandInteraction } from "discord.js";
+import type { ApplicationCommandAutocompleteNumericOptionData, ApplicationCommandAutocompleteStringOptionData, ApplicationCommandBooleanOptionData, ApplicationCommandChannelOptionData, ApplicationCommandMentionableOptionData, ApplicationCommandNonOptionsData, ApplicationCommandNumericOptionData, ApplicationCommandRoleOptionData, ApplicationCommandStringOptionData, ApplicationCommandUserOptionData, Awaitable, ChatInputCommandInteraction } from "discord.js";
 import { readdirSync } from "fs";
-import type{ Autocomplete } from "../../handlers/interactions/autocompletes";
+import type { Autocomplete } from "../../handlers/interactions/autocompletes";
 
-export type FirstLevelChatInputCommand = {
-  public?: true;
-  worksIn: Array<"non-test-areas" | "test-areas">;
-} & (ChatInputCommandExecutable | ChatInputCommandGroup<SecondLevelChatInputCommand>) & ChatInputCommandMeta;
-
-export type SecondLevelChatInputCommand = (ChatInputCommandExecutable | ChatInputCommandGroup<ThirdLevelChatInputCommand>) & ChatInputCommandMeta;
-
-export type ThirdLevelChatInputCommand = ChatInputCommandExecutable & ChatInputCommandMeta;
-
-export type ChatInputCommand = FirstLevelChatInputCommand | SecondLevelChatInputCommand | ThirdLevelChatInputCommand;
+export interface ChatInputCommandMeta {
+  description: string;
+  name: string;
+}
 
 export interface ChatInputCommandExecutable {
-  execute(interaction: ChatInputCommandInteraction<"cached">): Awaitable<void>;
+  execute(interaction: ChatInputCommandInteraction): Awaitable<void>;
   options?: [ChatInputCommandOptionData, ...ChatInputCommandOptionData[]];
 }
 
@@ -22,24 +16,37 @@ export interface ChatInputCommandGroup<NthLevelChatInputCommand extends SecondLe
   subcommands: [NthLevelChatInputCommand, ...NthLevelChatInputCommand[]];
 }
 
-export interface ChatInputCommandMeta {
-  description: string;
-  name: string;
-}
+export type FirstLevelChatInputCommand =
+  & { applicableTo: Array<"main" | "workers"> }
+  & (ChatInputCommandExecutable | ChatInputCommandGroup<SecondLevelChatInputCommand>)
+  & ChatInputCommandMeta;
+
+export type SecondLevelChatInputCommand =
+  & (ChatInputCommandExecutable | ChatInputCommandGroup<ThirdLevelChatInputCommand>)
+  & ChatInputCommandMeta;
+
+export type ThirdLevelChatInputCommand =
+  & ChatInputCommandExecutable
+  & ChatInputCommandMeta;
+
+export type ChatInputCommand =
+  | FirstLevelChatInputCommand
+  | SecondLevelChatInputCommand
+  | ThirdLevelChatInputCommand;
 
 export type ChatInputCommandOptionDataAutocomplete =
   | ({ autocomplete: Autocomplete<number> } & Omit<ApplicationCommandAutocompleteNumericOptionData, "autocomplete">)
   | ({ autocomplete: Autocomplete<string> } & Omit<ApplicationCommandAutocompleteStringOptionData, "autocomplete">);
 
 export type ChatInputCommandOptionDataNoAutocomplete =
-| ApplicationCommandBooleanOptionData
-| ApplicationCommandChannelOptionData
-| ApplicationCommandMentionableOptionData
-| ApplicationCommandNonOptionsData
-| ApplicationCommandRoleOptionData
-| ApplicationCommandUserOptionData
-| Omit<ApplicationCommandNumericOptionData, "autocomplete">
-| Omit<ApplicationCommandStringOptionData, "autocomplete">;
+  | ApplicationCommandBooleanOptionData
+  | ApplicationCommandChannelOptionData
+  | ApplicationCommandMentionableOptionData
+  | ApplicationCommandNonOptionsData
+  | ApplicationCommandRoleOptionData
+  | ApplicationCommandUserOptionData
+  | Omit<ApplicationCommandNumericOptionData, "autocomplete">
+  | Omit<ApplicationCommandStringOptionData, "autocomplete">;
 
 export type ChatInputCommandOptionData = ChatInputCommandOptionDataAutocomplete | ChatInputCommandOptionDataNoAutocomplete;
 

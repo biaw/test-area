@@ -1,19 +1,18 @@
-import type{ Awaitable, GuildMember, Message, MessageContextMenuCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
+import type{ APIGuildMember, Awaitable, GuildMember, Message, MessageContextMenuCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
 import { readdirSync } from "fs";
 
 interface BaseMenuCommand {
   name: string;
-  public?: true;
-  worksIn: Array<"non-test-areas" | "test-areas">;
+  worksIn: Array<"main" | "workers">;
 }
 
 export interface UserMenuCommand extends BaseMenuCommand {
-  execute(interaction: UserContextMenuCommandInteraction<"cached">, target: GuildMember): Awaitable<void>;
+  execute(interaction: UserContextMenuCommandInteraction, target: APIGuildMember | GuildMember | null): Awaitable<void>;
   type: "user";
 }
 
 export interface MessageMenuCommand extends BaseMenuCommand {
-  execute(interaction: MessageContextMenuCommandInteraction<"cached">, target: Message<true>): Awaitable<void>;
+  execute(interaction: MessageContextMenuCommandInteraction, target: Message): Awaitable<void>;
   type: "message";
 }
 

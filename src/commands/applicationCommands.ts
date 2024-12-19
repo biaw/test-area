@@ -1,14 +1,16 @@
-import type{ ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData } from "discord.js";
-import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
-import type{ ChatInputCommand, ChatInputCommandExecutable, ChatInputCommandOptionData, ChatInputCommandOptionDataAutocomplete } from "./chatInput";
+import type { ApplicationCommandData, ApplicationCommandOptionData, ApplicationCommandSubCommandData, ApplicationCommandSubGroupData } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType, ApplicationIntegrationType, InteractionContextType } from "discord.js";
+
+
+import type{ ChatInputCommand, ChatInputCommandExecutable, ChatInputCommandOptionData, ChatInputCommandOptionDataAutocomplete, FirstLevelChatInputCommand } from "./chatInput";
 import { allChatInputCommands } from "./chatInput";
 import { allMenuCommands } from "./menu";
 
-export default function getAllApplicationCommands(commandType?: "non-test-areas" | "test-areas"): ApplicationCommandData[] {
+export default function getAllApplicationCommands(commandType?: FirstLevelChatInputCommand["applicableTo"][number]): ApplicationCommandData[] {
   const applicationCommands: ApplicationCommandData[] = [];
 
   for (const command of allChatInputCommands) {
-    if (!commandType || command.worksIn.includes(commandType)) {
+    if (!commandType || command.applicableTo.includes(commandType)) {
       applicationCommands.push({
         name: command.name,
         description: command.description,
@@ -35,7 +37,8 @@ export default function getAllApplicationCommands(commandType?: "non-test-areas"
                 },
             })),
           },
-        ...!command.public && commandType === "non-test-areas" && { defaultMemberPermissions: 0n },
+        integrationTypes: [commandType === "main" ? ApplicationIntegrationType.UserInstall : ApplicationIntegrationType.GuildInstall],
+        ...commandType === "main" && { contexts: [InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel] },
       });
     }
   }
@@ -45,7 +48,8 @@ export default function getAllApplicationCommands(commandType?: "non-test-areas"
       applicationCommands.push({
         name: command.name,
         type: command.type === "message" ? ApplicationCommandType.Message : ApplicationCommandType.User,
-        ...!command.public && commandType === "non-test-areas" && { defaultMemberPermissions: 0n },
+        integrationTypes: [commandType === "main" ? ApplicationIntegrationType.UserInstall : ApplicationIntegrationType.GuildInstall],
+        ...commandType === "main" && { contexts: [InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel] },
       });
     }
   }

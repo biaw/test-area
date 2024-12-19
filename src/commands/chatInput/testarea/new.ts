@@ -1,12 +1,12 @@
 import type{ BaseGuildTextChannel, PartialChannelData } from "discord.js";
-import { ApplicationCommandOptionType, ButtonStyle, ChannelType, ComponentType, GuildDefaultMessageNotifications, OAuth2Scopes } from "discord.js";
+import { ApplicationCommandOptionType, ChannelType, Colors, GuildDefaultMessageNotifications, PermissionFlagsBits } from "discord.js";
 import type{ SecondLevelChatInputCommand } from "..";
+import config from "../../../config";
 import { TestArea } from "../../../database/models/TestArea";
-import { buttonComponents } from "../../../handlers/interactions/components";
-import { workers } from "../../../handlers/workers";
+import Worker from "../../../handlers/workers/Worker";
 
 enum Channels { EntryLog, HumansOnly, TestChannelCategory }
-enum Roles { Everyone, Owner, Bot, AdminPerms, Manager }
+enum Roles { Everyone, Owner, Operator, Bot, AdminPerms, Manager }
 
 export default {
   name: "new",
@@ -26,11 +26,16 @@ export default {
     },
   ],
   async execute(interaction) {
-    const worker = Array.from(workers.values()).find(({ guilds }) => guilds.cache.size < 10);
+    const worker = Worker.getRandomNonFullWorker();
     if (!worker) return void interaction.reply({ content: "❌ I cannot create more test areas, no worker is available.", ephemeral: true });
 
+    if (interaction.user.id !== config.ownerId) {
+      const allOwnedTestAreas = await TestArea.countDocuments({ guild: { ownerId: interaction.user.id } });
+      if (allOwnedTestAreas >= config.limitAmountOfAreasPerUser) return void interaction.reply({ content: "❌ You've exceeded the amount of testing areas. Consider deleting some before you create a new one.", ephemeral: true });
+    }
+
     const [[guild, invite]] = await Promise.all([
-      worker.guilds.create({
+      worker.client.guilds.create({
         name: interaction.options.getString("name", true),
         channels: [
           {
@@ -43,7 +48,7 @@ export default {
             permissionOverwrites: [
               {
                 id: Roles.Bot,
-                deny: ["ViewChannel"],
+                deny: [PermissionFlagsBits.ViewChannel],
               },
             ],
           },
@@ -59,52 +64,59 @@ export default {
             id: Roles.Everyone,
             name: "everyone",
             permissions: [
-              "AddReactions",
-              "AttachFiles",
-              "ChangeNickname",
-              "Connect",
-              "CreatePrivateThreads",
-              "CreatePublicThreads",
-              "EmbedLinks",
-              "ReadMessageHistory",
-              "RequestToSpeak",
-              "SendMessages",
-              "SendMessagesInThreads",
-              "Speak",
-              "Stream",
-              "UseApplicationCommands",
-              "UseEmbeddedActivities",
-              "UseExternalEmojis",
-              "UseExternalStickers",
-              "UseVAD",
-              "ViewAuditLog",
-              "ViewChannel",
+              PermissionFlagsBits.AddReactions,
+              PermissionFlagsBits.AttachFiles,
+              PermissionFlagsBits.ChangeNickname,
+              PermissionFlagsBits.Connect,
+              PermissionFlagsBits.CreatePrivateThreads,
+              PermissionFlagsBits.CreatePublicThreads,
+              PermissionFlagsBits.EmbedLinks,
+              PermissionFlagsBits.ReadMessageHistory,
+              PermissionFlagsBits.RequestToSpeak,
+              PermissionFlagsBits.SendMessages,
+              PermissionFlagsBits.SendMessagesInThreads,
+              PermissionFlagsBits.Speak,
+              PermissionFlagsBits.Stream,
+              PermissionFlagsBits.UseApplicationCommands,
+              PermissionFlagsBits.UseEmbeddedActivities,
+              PermissionFlagsBits.UseExternalEmojis,
+              PermissionFlagsBits.UseExternalStickers,
+              PermissionFlagsBits.UseVAD,
+              PermissionFlagsBits.ViewAuditLog,
+              PermissionFlagsBits.ViewChannel,
             ],
-          },
-          {
-            id: Roles.Owner,
-            name: "👑",
-            color: "Gold",
-            hoist: true,
-            permissions: [],
           },
           {
             id: Roles.Bot,
             name: "🤖",
-            color: "Grey",
+            color: Colors.Grey,
+            hoist: true,
+            permissions: [],
+          },
+          {
+            id: Roles.Operator,
+            name: "🔰",
+            color: Colors.Green,
+            hoist: true,
+            permissions: [],
+          },
+          {
+            id: Roles.Owner,
+            name: "👑",
+            color: Colors.Gold,
             hoist: true,
             permissions: [],
           },
           {
             id: Roles.AdminPerms,
             name: "💥",
-            color: "Red",
-            permissions: ["Administrator"],
+            color: Colors.Red,
+            permissions: [PermissionFlagsBits.Administrator],
           },
           {
             id: Roles.Manager,
             name: "🔧",
-            color: "Blurple",
+            color: config.themeColor,
             hoist: true,
             permissions: [],
           },
@@ -117,47 +129,26 @@ export default {
           const entryChannel = newTestArea.channels.cache.find(({ name }) => name === "entry-log") as BaseGuildTextChannel;
           const newInvite = await entryChannel.createInvite({ maxAge: 0, maxUses: 0 });
 
-          // manager role
-          const managerRole = newTestArea.roles.cache.find(({ name }) => name === "🔧")!;
-          void newTestArea.members.fetchMe().then(me => me.roles.add(managerRole));
-
           // saving to database and then returning
           await TestArea.create({
-            serverId: newTestArea.id,
-            botId: worker.user.id,
+            guildId: newTestArea.id,
             ownerId: interaction.user.id,
-            roles: {
-              ownerId: newTestArea.roles.cache.find(({ name }) => name === "👑")!.id,
-              botId: newTestArea.roles.cache.find(({ name }) => name === "🤖")!.id,
-              adminId: newTestArea.roles.cache.find(({ name }) => name === "💥")!.id,
-            },
-            invite: newInvite.url,
-          });
-
-          // sending invite link for slash commands
-          void entryChannel.send({
-            content: `✨ For my slash commands to work, you need to add them for me ... which is stupid, but welcome to Discord. Please add me with this link:\n<${worker.generateInvite({
-              scopes: [OAuth2Scopes.ApplicationsCommands],
-              guild: newTestArea,
-              disableGuildSelect: true,
-            })}>`,
-            components: [
-              {
-                type: ComponentType.ActionRow,
-                components: [
-                  {
-                    type: ComponentType.Button,
-                    customId: "new-test-area:hide-slash-commands-notice",
-                    label: "Hide this message",
-                    style: ButtonStyle.Secondary,
-                  },
-                ],
+            workerId: worker.client.user!.id,
+            guild: {
+              name: newTestArea.name,
+              inviteCode: newInvite.code,
+              roles: {
+                adminId: newTestArea.roles.cache.find(({ name }) => name === "💥")!.id,
+                botId: newTestArea.roles.cache.find(({ name }) => name === "🤖")!.id,
+                managerId: newTestArea.roles.cache.find(({ name }) => name === "🔧")!.id,
+                operatorId: newTestArea.roles.cache.find(({ name }) => name === "🔰")!.id,
+                ownerId: newTestArea.roles.cache.find(({ name }) => name === "👑")!.id,
               },
-            ],
+            },
           });
 
-          // rename bot
-          void newTestArea.members.fetchMe().then(me => me.setNickname("Test Area Worker"));
+          // rename bot and add role
+          void newTestArea.members.fetchMe().then(me => void me.setNickname("Test Area Worker"));
 
           return [newTestArea, newInvite] as const;
         }),
@@ -166,13 +157,4 @@ export default {
 
     return void interaction.editReply(`✅ Area **${guild.name}** created! Here's an invite: ${invite.url}`);
   },
-} as SecondLevelChatInputCommand;
-
-buttonComponents.set("new-test-area:hide-slash-commands-notice", {
-  allowedUsers: "all",
-  persistent: true,
-  async callback(button) {
-    await button.deferUpdate();
-    void button.message.delete();
-  },
-});
+} satisfies SecondLevelChatInputCommand;

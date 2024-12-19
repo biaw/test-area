@@ -7,38 +7,38 @@ interface BaseComponent {
 }
 
 interface ButtonComponent extends BaseComponent {
-  callback(interaction: ButtonInteraction<"cached">): Awaitable<void>;
+  callback(interaction: ButtonInteraction): Awaitable<void>;
 }
 
 interface ChannelSelectMenuComponent extends BaseComponent {
-  callback(interaction: ChannelSelectMenuInteraction<"cached">): Awaitable<void>;
+  callback(interaction: ChannelSelectMenuInteraction): Awaitable<void>;
   selectType: "channel";
 }
 
 interface MentionableSelectMenuComponent extends BaseComponent {
-  callback(interaction: MentionableSelectMenuInteraction<"cached">): Awaitable<void>;
+  callback(interaction: MentionableSelectMenuInteraction): Awaitable<void>;
   selectType: "mentionable";
 }
 
 interface RoleSelectMenuComponent extends BaseComponent {
-  callback(interaction: RoleSelectMenuInteraction<"cached">): Awaitable<void>;
+  callback(interaction: RoleSelectMenuInteraction): Awaitable<void>;
   selectType: "role";
 }
 
 interface StringSelectMenuComponent extends BaseComponent {
-  callback(interaction: StringSelectMenuInteraction<"cached">): Awaitable<void>;
+  callback(interaction: StringSelectMenuInteraction): Awaitable<void>;
   selectType: "string";
 }
 
 interface UserSelectMenuComponent extends BaseComponent {
-  callback(interaction: UserSelectMenuInteraction<"cached">): Awaitable<void>;
+  callback(interaction: UserSelectMenuInteraction): Awaitable<void>;
   selectType: "user";
 }
 
 export const buttonComponents = new Map<string, ButtonComponent>();
 export const selectMenuComponents = new Map<string, ChannelSelectMenuComponent | MentionableSelectMenuComponent | RoleSelectMenuComponent | StringSelectMenuComponent | UserSelectMenuComponent>();
 
-export default function componentHandler(interaction: AnySelectMenuInteraction<"cached"> | ButtonInteraction<"cached">): void {
+export default function componentHandler(interaction: AnySelectMenuInteraction | ButtonInteraction): void {
   if (interaction.isButton()) {
     const component = buttonComponents.get(interaction.customId);
     if (component && (component.allowedUsers === "all" || component.allowedUsers.includes(interaction.user.id))) void component.callback(interaction);
@@ -58,6 +58,6 @@ const selectTypes: Record<(ChannelSelectMenuComponent | MentionableSelectMenuCom
   user: ComponentType.UserSelect,
 };
 
-function selectComponentMatchesInteractionType(interaction: AnySelectMenuInteraction<"cached">, component: ChannelSelectMenuComponent | MentionableSelectMenuComponent | RoleSelectMenuComponent | StringSelectMenuComponent | UserSelectMenuComponent): boolean {
+function selectComponentMatchesInteractionType(interaction: AnySelectMenuInteraction, component: ChannelSelectMenuComponent | MentionableSelectMenuComponent | RoleSelectMenuComponent | StringSelectMenuComponent | UserSelectMenuComponent): boolean {
   return selectTypes[component.selectType] === interaction.componentType;
 }

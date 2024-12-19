@@ -1,58 +1,12 @@
-import type{ Caches } from "discord.js";
-import { Client, IntentsBitField, Options, Partials } from "discord.js";
 import { inspect } from "util";
 import config from "./config";
 import connection from "./database";
 import handleInteractions from "./handlers/interactions";
 import handleMentionCommands from "./handlers/mentionCommands";
 import handleWorkers from "./handlers/workers";
+import client from "./utils/client";
 import discordLogger from "./utils/logger/discord";
 import mainLogger from "./utils/logger/main";
-
-const client = new Client({
-  allowedMentions: { parse: [], users: [], roles: [], repliedUser: true },
-  intents: [
-    IntentsBitField.Flags.GuildMessages,
-    IntentsBitField.Flags.Guilds,
-    IntentsBitField.Flags.MessageContent,
-  ],
-  makeCache: Options.cacheWithLimits({
-    ApplicationCommandManager: 0,
-    AutoModerationRuleManager: 0,
-    BaseGuildEmojiManager: 0,
-    DMMessageManager: 0,
-    GuildBanManager: 0,
-    GuildEmojiManager: 0,
-    GuildForumThreadManager: 0,
-    GuildInviteManager: 0,
-    GuildMemberManager: 0,
-    GuildMessageManager: 0,
-    GuildScheduledEventManager: 0,
-    GuildStickerManager: 0,
-    GuildStickerPackManager: 0,
-    GuildTextThreadManager: 0,
-    MessageManager: 0,
-    PresenceManager: 0,
-    ReactionManager: 0,
-    ReactionUserManager: 0,
-    StageInstanceManager: 0,
-    ThreadManager: 0,
-    ThreadMemberManager: 0,
-    UserManager: 0,
-    VoiceStateManager: 0,
-  } as Record<keyof Caches, number>),
-  partials: [
-    Partials.Channel,
-    Partials.GuildMember,
-    Partials.GuildScheduledEvent,
-    Partials.Message,
-    Partials.Reaction,
-    Partials.ThreadMember,
-    Partials.User,
-  ],
-  presence: { status: "online" },
-  rest: { userAgentAppendix: "Test Area (https://github.com/biaw/test-area)" },
-});
 
 // init client
 client.once("ready", trueClient => {
@@ -60,7 +14,7 @@ client.once("ready", trueClient => {
 
   handleInteractions(trueClient);
   handleMentionCommands(trueClient);
-  handleWorkers(trueClient);
+  handleWorkers();
 });
 
 // discord debug logging
@@ -83,4 +37,4 @@ process
   .on("unhandledRejection", error => mainLogger.warn(`Unhandled rejection: ${inspect(error)}`));
 
 // log in
-void connection.then(() => void client.login(config.client.token));
+void connection.then(() => void client.login(config.clientToken));

@@ -22,6 +22,7 @@ const config = {
 
   themeColor: parseInt(process.env["THEME_COLOR"] ?? "0", 16) || Colors.Blurple,
   limitAmountOfAreasPerUser: parseInt(process.env["AREA_LIMIT_PER_USER"] ?? "10", 10),
+  noGeneratedNames: process.env["DISABLE_FUNNY_WORKER_NAMES"] === "true",
 } as const;
 
 if (config.workerTokens.includes(config.clientToken)) throw new Error("You need to supply a separate bot token to be a worker, they cannot work alongside each other.");

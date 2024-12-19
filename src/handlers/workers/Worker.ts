@@ -3,6 +3,7 @@ import type { Logger } from "winston";
 import { Client, IntentsBitField, Options, Partials } from "discord.js";
 import { objects, predicates } from "friendly-words";
 import { inspect } from "util";
+import config from "../../config";
 import { workerLogger } from "../../utils/logger/discord";
 import mainLogger from "../../utils/logger/main";
 import handleInteractions from "../interactions";
@@ -86,7 +87,7 @@ export default class Worker {
       handleInteractions(trueClient, this.workerName);
       handleMentionCommands(trueClient, this.workerName);
 
-      if (trueClient.user.username !== this.workerName) {
+      if (!config.noGeneratedNames && trueClient.user.username !== this.workerName) {
         void trueClient.user.edit({ username: this.workerName });
         this.logger.info(`Renamed worker to match worker name. (${this.workerName})`);
       }

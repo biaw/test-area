@@ -31,5 +31,12 @@ jobs:
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
 
+    - name: Mock .env
+      run: |
+        echo "CLIENT_TOKEN=hawk" > .env
+        echo "WORKER_TOKENS=tuah" >> .env
+        echo "DATABSE_URI=mock" >> .env
+        echo "OWNER_ID=mock" >> .env
+
     - name: Run Jest
       run: pnpm test

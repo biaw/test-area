@@ -39,7 +39,7 @@ Test Area comes in a Docker image: `ghcr.io/biaw/test-area`, which it makes it r
 
 1. You will need at least two bots set up.
     - The first bot will be your main bot. Set it up like this:
-        - Installation: Set to User Install only, without an install link.
+        - Installation: Set to both Guild Install and User Install, without an install link.
         - Bot: Make sure it is private. Reset the token and save it.
     - The second one will be your worker bot. Set it up like this:
         - Installation: Set to Guild Install only, without an install link.
@@ -73,8 +73,19 @@ services:
 ```
 
 4. Run `docker-compose up -d` in the folder where you saved the `docker-compose.yml` file.
-5. Invite the user bot to your server using this link: https://canary.discord.com/oauth2/authorize?client_id=YOUR_BOT_ID
+5. Invite the user bot to your server using this link: https://canary.discord.com/oauth2/authorize?client_id=YOUR_BOT_ID. See [troubleshooting](#troubleshooting-invites) if you experience any issues when inviting the bot.
 6. You're done! You can now use the bot using the main `/testarea` command.
+
+## Troubleshooting invites
+
+For some reason, user apps can only be installed when there's an install link set up, at least as of writing this. If you're ever getting weird errors when trying to invite the user bot then try to temporarily add the built-in invite to the Installation page. See below.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./videos/install-fix-dark.gif">
+  <img src="./videos/install-fix-light.gif">
+</picture>
+
+Make sure you save before trying! You can remove the install link again once it's installed.
 
 ## FAQ
 
@@ -93,3 +104,13 @@ You can do this by supplying multiple worker tokens in the `WORKER_TOKENS` envir
 When initializing a new worker, the worker needs a name for logging. So, naturally, as any chaotic evil programmer would do, I decided to add a name generator based on the bot ID.
 
 However, you can disable this by setting the environment variable `DISABLE_FUNNY_WORKER_NAMES` to `true`.
+
+### Can I invite other people to use the bot?
+
+Yes, you can. There's two methods of doing this, you can either open the bot up to be installed for them as a user app, or you can install it as a guild app.
+
+If you want another user to install it as a user app then you need to create an invite link for them, and then they can install it. See [Troubleshooting invites](#troubleshooting-invites) for more information.
+
+## Notice
+
+We highly disencourage using more than three bots as this is a "workaround" to bots only being able to create 10 guilds. The risk is on you for using this tool.

@@ -37,8 +37,13 @@ export default function getAllApplicationCommands(commandType?: FirstLevelChatIn
                 },
             })),
           },
-        integrationTypes: [commandType === "main" ? ApplicationIntegrationType.UserInstall : ApplicationIntegrationType.GuildInstall],
-        ...commandType === "main" && { contexts: [InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel] },
+        // the main bot can be installed both as a user application and a guild application
+        ...commandType === "main" && {
+          integrationTypes: [ApplicationIntegrationType.UserInstall, ApplicationIntegrationType.GuildInstall],
+          contexts: [InteractionContextType.BotDM, InteractionContextType.Guild, InteractionContextType.PrivateChannel],
+        },
+        // while the worker shouldn't be downloaded at all, but serves commands via the test area guilds
+        ...commandType === "workers" && { integrationTypes: [ApplicationIntegrationType.GuildInstall] },
       });
     }
   }

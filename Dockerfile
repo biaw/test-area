@@ -5,11 +5,13 @@ WORKDIR /app
 # install prod dependencies
 
 FROM base AS deps
-RUN corepack enable pnpm
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+# corepack has had issues with pnpm in earlier versions, and since we only use corepack to download pnpm then we can safely use the latest version
+RUN \
+  npm i -g corepack@latest \
+  corepack enable pnpm
 
+COPY pnpm-lock.yaml package.json .npmrc ./
 RUN pnpm install --frozen-lockfile --prod
 
 

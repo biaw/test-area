@@ -15,7 +15,7 @@ services:
     depends_on:
       - db
   db:
-    image: mongo:8@sha256:2e018e386e891d2e4239aca6035fb7701dac51b72891247ecd2f95ff8a167859
+    image: mongo:8@sha256:9f67b6bafda002f7bcad9939e4d84c3b4e9b11ffff6c1f9fab3f77e30c646304
     restart: always
     volumes:
       - ./database:/data/db

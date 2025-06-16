@@ -42,7 +42,7 @@
     "@types/friendly-words": "1.2.2",
     "@types/jest": "29.5.14",
     "@types/node": "22.15.32",
-    "eslint": "9.28.0",
+    "eslint": "9.29.0",
     "eslint-config-promise": "github:promise/eslint-config",
     "jest": "30.0.0",
     "ts-jest": "29.4.0",

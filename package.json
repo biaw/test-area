@@ -24,14 +24,14 @@
   },
   "dependencies": {
     "@sapphire/type": "2.6.0",
-    "@typegoose/typegoose": "12.10.1",
+    "@typegoose/typegoose": "12.17.0",
     "bufferutil": "4.0.9",
     "dedent": "1.5.3",
     "discord.js": "14.16.3",
     "dotenv": "16.4.7",
     "friendly-words": "1.3.1",
     "match-sorter": "8.0.3",
-    "mongoose": "8.9.5",
+    "mongoose": "8.16.4",
     "winston": "3.17.0",
     "winston-daily-rotate-file": "5.0.0",
     "zlib-sync": "0.1.10"
